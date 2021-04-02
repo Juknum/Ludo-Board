@@ -10,7 +10,7 @@ public class Pawn{
   int current;
   int height, width;
 
-  puclic Pawn(int h, int w){
+  public Pawn(int h, int w){
     current = -1;
     x = -1;
     y = -1;
@@ -18,5 +18,19 @@ public class Pawn{
     width = w;
   }
 
+  public void draw(Graphics2D g, int i, int j, int play){
+
+    if (play == 0){
+      g.setColor(Color.RED);
+    } else if (play == 1){
+      g.setColor(Color.GREEN);
+    } else if (play == 2){
+      g.setColor(Color.YELLOW);
+    } else if (play == 4){
+      g.setColor(Color.BLUE);
+    }
+    
+    //TODO dimensionnement dessin pion (taille, forme, couleur, etc)
+  }
 
 }
