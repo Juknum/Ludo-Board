@@ -1,4 +1,4 @@
-package fr.constant-echard.ludo
+package fr.constantechard.ludo
 
 public class Path {
 	static int[][] ax= {

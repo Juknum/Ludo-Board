@@ -1,4 +1,4 @@
-package fr.constant-echard.ludo;
+package fr.constantechard.ludo;
 
 import java.awt.Graphics2D;
 

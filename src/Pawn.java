@@ -1,4 +1,4 @@
-package fr.constant-echard.ludo;
+package fr.constantechard.ludo;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -26,7 +26,7 @@ public class Pawn{
       g.setColor(Color.GREEN);
     } else if (play == 2){
       g.setColor(Color.YELLOW);
-    } else if (play == 4){
+    } else if (play == 3){
       g.setColor(Color.BLUE);
     }
     
