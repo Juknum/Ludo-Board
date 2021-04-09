@@ -99,6 +99,7 @@ public abstract class Player {
       case MOVE:
         content += "move forward of " + DicePanel.getLastDice();
         h.move();
+        break;
       default:
         break;
     }
