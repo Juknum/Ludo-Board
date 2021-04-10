@@ -1,4 +1,4 @@
-package drawer;
+package src.drawer;
 
 import java.awt.*;
 

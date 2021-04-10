@@ -1,13 +1,13 @@
-package org.constantechard.src.game;
+package old.org.constantechard.src.game;
 
-import org.constantechard.src.DicePanel;
-import org.constantechard.src.RightPanel;
+import old.org.constantechard.src.DicePanel;
+import old.org.constantechard.src.RightPanel;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.constantechard.src.game.GameConstants.NB_HORSES;
-import static org.constantechard.src.game.AvailableActions.actions.*;
+import static old.org.constantechard.src.game.GameConstants.NB_HORSES;
+import static old.org.constantechard.src.game.AvailableActions.actions.*;
 
 public abstract class Player {
   private final String name;

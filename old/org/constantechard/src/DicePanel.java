@@ -1,9 +1,9 @@
-package org.constantechard.src;
+package old.org.constantechard.src;
 
-import org.constantechard.src.dice.DiceDrawer;
-import org.constantechard.src.dice.RollListener;
-import org.constantechard.src.game.GameConstants;
-import org.constantechard.src.game.GameManager;
+import old.org.constantechard.src.dice.DiceDrawer;
+import old.org.constantechard.src.dice.RollListener;
+import old.org.constantechard.src.game.GameConstants;
+import old.org.constantechard.src.game.GameManager;
 
 import javax.swing.*;
 import java.awt.*;

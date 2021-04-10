@@ -1,4 +1,4 @@
-package org.constantechard.src.dice;
+package old.org.constantechard.src.dice;
 
 import java.awt.*;
 

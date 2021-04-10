@@ -1,9 +1,10 @@
+package src;
 
 import javax.swing.*;
 
-import game.Manager;
-import panel.BoardPanel;
-import panel.MainRightPanel;
+import src.game.Manager;
+import src.panel.BoardPanel;
+import src.panel.MainRightPanel;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;

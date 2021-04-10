@@ -1,7 +1,7 @@
-package org.constantechard.src.game;
+package old.org.constantechard.src.game;
 
-import org.constantechard.src.DicePanel;
-import static org.constantechard.src.game.GameConstants.MAX_LENGTH;
+import old.org.constantechard.src.DicePanel;
+import static old.org.constantechard.src.game.GameConstants.MAX_LENGTH;
 
 public class Horse {
   private boolean inBarns = true;

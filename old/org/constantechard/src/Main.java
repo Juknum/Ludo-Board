@@ -1,6 +1,6 @@
-package org.constantechard.src;
+package old.org.constantechard.src;
 
-import org.constantechard.src.game.GameManager;
+import old.org.constantechard.src.game.GameManager;
 
 import javax.swing.*;
 import java.awt.*;

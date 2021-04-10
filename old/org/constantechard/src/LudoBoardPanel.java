@@ -1,16 +1,16 @@
-package org.constantechard.src;
+package old.org.constantechard.src;
 
-import org.constantechard.src.drawer.*;
-import org.constantechard.src.game.GameManager;
-import org.constantechard.src.game.Horse;
-import org.constantechard.src.game.Player;
+import old.org.constantechard.src.drawer.*;
+import old.org.constantechard.src.game.GameManager;
+import old.org.constantechard.src.game.Horse;
+import old.org.constantechard.src.game.Player;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
-import static org.constantechard.src.game.GameConstants.*;
+import static old.org.constantechard.src.game.GameConstants.*;
 
 public class LudoBoardPanel extends JPanel {
   private static final long serialVersionUID = 1L;

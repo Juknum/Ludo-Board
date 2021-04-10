@@ -1,14 +1,14 @@
-package org.constantechard.src.game;
+package old.org.constantechard.src.game;
 
-import org.constantechard.src.DicePanel;
-import org.constantechard.src.LudoBoardPanel;
-import org.constantechard.src.RightPanel;
+import old.org.constantechard.src.DicePanel;
+import old.org.constantechard.src.LudoBoardPanel;
+import old.org.constantechard.src.RightPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static org.constantechard.src.game.GameConstants.*;
+import static old.org.constantechard.src.game.GameConstants.*;
 
 public final class GameManager {
   @SuppressWarnings("PointlessBooleanExpression")
