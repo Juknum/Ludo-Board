@@ -143,19 +143,19 @@ public class BoardPanel extends JPanel {
 
     // pawn
     ArrayList<Player> players = Manager.getPlayerList();
-    for (int directionIndex = 0; directionIndex < Directioner.Direction.values().length; directionIndex++) {
+    for (int directionIndex = 0; directionIndex < Directioner.Direction.values().length; directionIndex++) {    
       moving.setDir(Directioner.Direction.values()[directionIndex]);
 
       g.setColor(colors[directionIndex]);
 
-      int horseIndex = 0;
+      int horseIndex = 0;    
       for (Horse h : players.get(directionIndex).getHorses()) {
         moving.resetMove();
 
         if (h.isInStairs()) {
           moving.up(MAX_STAIRS - h.getStairs());
         } else if (h.isInBarns()) {
-          moving.setMove(-(.5f + 1 + BARNS / 2.f), -(.5f + 1 + BARNS / 2.f));
+          moving.setMove(-(.5f + 1 + BARNS / 2.f), -(.5f + 1 + BARNS / 2.f));  
 
           // even horse left
           if (horseIndex % 2 == 0) {
