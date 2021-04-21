@@ -1,16 +1,16 @@
-package src.panel;
+package panel;
 
-import src.game.Manager;
-import src.player.Horse;
-import src.player.Player;
+import game.Manager;
+import player.Horse;
+import player.Player;
 
-import src.drawer.Directioner;
-import src.drawer.DiscDrawer;
-import src.drawer.PawnDrawer;
-import src.drawer.RectDrawer;
-import src.drawer.TextDrawer;
+import drawer.Directioner;
+import drawer.DiscDrawer;
+import drawer.PawnDrawer;
+import drawer.RectDrawer;
+import drawer.TextDrawer;
 
-import static src.game.CONSTANTS.*;
+import static game.CONSTANTS.*;
 
 import javax.swing.*;
 import java.awt.*;

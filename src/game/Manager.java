@@ -1,16 +1,16 @@
-package src.game;
+package game;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import src.panel.BoardPanel;
-import src.panel.DicePanel;
-import src.player.AIPlayer;
-import src.player.Player;
-import src.player.RealPlayer;
+import panel.BoardPanel;
+import panel.DicePanel;
+import player.AIPlayer;
+import player.Player;
+import player.RealPlayer;
 
-import static src.game.CONSTANTS.*;
+import static game.CONSTANTS.*;
 
 public class Manager {
   @SuppressWarnings("PointlessBooleanExpression")

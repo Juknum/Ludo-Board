@@ -1,14 +1,14 @@
-package src.player;
+package player;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import src.game.AvailableActions;
-import src.game.Manager;
-import src.panel.DicePanel;
+import game.AvailableActions;
+import game.Manager;
+import panel.DicePanel;
 
-import static src.game.CONSTANTS.NB_HORSES;
-import static src.game.AvailableActions.actions.*;
+import static game.CONSTANTS.NB_HORSES;
+import static game.AvailableActions.actions.*;
 
 public abstract class Player {
   private final String name;

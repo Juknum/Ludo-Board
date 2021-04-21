@@ -1,4 +1,4 @@
-package src.player;
+package player;
 
 import java.awt.*;
 
