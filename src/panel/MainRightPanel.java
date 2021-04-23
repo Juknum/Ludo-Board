@@ -1,9 +1,9 @@
-package panel;
+package src.panel;
 
 import javax.swing.*;
 import java.awt.*;
 
-import game.Manager;
+import src.game.Manager;
 
 public class MainRightPanel extends JPanel {
   private static final long    serialVersionUID = 1L;

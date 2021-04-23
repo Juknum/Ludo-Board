@@ -1,9 +1,9 @@
-package panel;
+package src.panel;
 
-import drawer.DiceDrawer;
-import game.Manager;
-import game.CONSTANTS;
-import game.RollListener;
+import src.drawer.DiceDrawer;
+import src.game.Manager;
+import src.game.CONSTANTS;
+import src.game.RollListener;
 
 import javax.swing.*;
 import java.awt.*;
