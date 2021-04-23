@@ -9,6 +9,7 @@ import src.drawer.DiscDrawer;
 import src.drawer.PawnDrawer;
 import src.drawer.RectDrawer;
 import src.drawer.TextDrawer;
+import src.drawer.Directioner.Direction;
 
 import static src.game.CONSTANTS.*;
 
@@ -41,7 +42,6 @@ public class BoardPanel extends JPanel {
     int height = this.getHeight();
     int width  = this.getWidth();
     int spacew = width / COUNT;
-    @SuppressWarnings("unused")
     int spaceh = height / COUNT;
 
     // directioner
@@ -75,17 +75,27 @@ public class BoardPanel extends JPanel {
       Polygon p = new Polygon();
       moving.resetMove();
       p.addPoint(Math.round(moving.getX()), Math.round(moving.getY()));
-      moving.up(.5f);
-      moving.left(.5f);
+      moving.up(1.25f);
+      moving.left(1.25f);
       p.addPoint(Math.round(moving.getX()), Math.round(moving.getY()));
-      moving.right(1f);
+      moving.right(2.5f);
       p.addPoint(Math.round(moving.getX()), Math.round(moving.getY()));
       g.fillPolygon(p);
 
       // barns
+      g.setColor(darkColors[colorIndex]);
+      moving.resetMove();
+      rectDrawer.setSide(BARNS);
+      moving.move((.5f + 1 + BARNS / 2.f), -(.5f + 1 + BARNS / 2.f));
+      rectDrawer.fill(g);
+      rectDrawer.setSide(BARNS * 0.90f);
+      g.setColor(colors[colorIndex]);
+      rectDrawer.fill(g);
+
+      // stairs
       moving.resetMove();
       rectDrawer.setSide(CELL_SIZE);
-      for (int ri = 0; ri < BARNS; ri++) {
+      for (int ri = -1; ri < BARNS; ri++) {
         moving.up(1);
         g.setColor(colors[colorIndex]);
         rectDrawer.fill(g);
@@ -100,19 +110,24 @@ public class BoardPanel extends JPanel {
       moving.right(1);
       discDrawer.fill(g);
 
-      // start circle
-      discDrawer.setDiameter(CELL_SIZE * .3f);
-      g.setColor(Color.white);
-      discDrawer.fill(g);
-      discDrawer.setDiameter(CELL_SIZE);
-      g.setColor(darkColors[colorIndex]);
-
-      for (int di = 0; di < BARNS; di++) {
+      for (int di = -1; di < BARNS; di++) {
         moving.down(1);
-        discDrawer.fill(g);
+
+        // start circle
+        if (di == -1) {
+          discDrawer.fill(g);
+
+          discDrawer.setDiameter(CELL_SIZE * .5f);
+          g.setColor(Color.white);
+          discDrawer.fill(g);
+
+          discDrawer.setDiameter(CELL_SIZE);
+          g.setColor(darkColors[colorIndex]);
+        }
+        else if (di != BARNS - 1) discDrawer.fill(g);
       }
 
-      for (int di = 0; di < BARNS; di++) {
+      for (int di = -1; di < BARNS; di++) {
         moving.right(1);
         discDrawer.fill(g);
       }
@@ -120,12 +135,13 @@ public class BoardPanel extends JPanel {
 
     // text squares central
     TextDrawer textDrawer = new TextDrawer(textDirectioner, "", g);
-    textDrawer.setSize(spacew, spacew);
+    textDrawer.setSize(spacew, spaceh);
     textDrawer.setFont("Arial Black", Font.PLAIN, .8f * spacew);
 
     for (int i = 0; i < colors.length; i++) {
       textDirectioner.resetMove();
-      textDirectioner.down(1);
+      textDirectioner.down(.95f);
+      textDirectioner.right(.01f);
 
       for (int ni = MAX_STAIRS; ni > 0; ni--) {
         g.setColor(TEXT_COLOR);
@@ -136,8 +152,7 @@ public class BoardPanel extends JPanel {
       Graphics2D g2d = (Graphics2D) g;
 
       // rotates the coordinate by 90° counterclockwise
-      AffineTransform rotate = AffineTransform.getRotateInstance(-Math.PI / 2.0, spacew * COUNT / 2.f,
-          spacew * COUNT / 2.f);
+      AffineTransform rotate = AffineTransform.getRotateInstance(-Math.PI / 2.0, spacew * COUNT / 2.f, spacew * COUNT / 2.f);
       g2d.transform(rotate);
     }
 
@@ -145,8 +160,9 @@ public class BoardPanel extends JPanel {
     ArrayList<Player> players = Manager.getPlayerList();
     for (int directionIndex = 0; directionIndex < Directioner.Direction.values().length; directionIndex++) {    
       moving.setDir(Directioner.Direction.values()[directionIndex]);
+      g.setColor(pawnColors[directionIndex]);
 
-      g.setColor(colors[directionIndex]);
+      System.out.println(Directioner.Direction.values()[directionIndex]);
 
       int horseIndex = 0;    
       for (Horse h : players.get(directionIndex).getHorses()) {
@@ -154,10 +170,11 @@ public class BoardPanel extends JPanel {
 
         if (h.isInStairs()) {
           moving.up(MAX_STAIRS - h.getStairs());
-        } else if (h.isInBarns()) {
-          moving.setMove(-(.5f + 1 + BARNS / 2.f), -(.5f + 1 + BARNS / 2.f));  
+        } 
+        else if (h.isInBarns()) {
+          moving.setMove(-(1.5f + BARNS / 2.f), -(1.5f + BARNS / 2.f));  
 
-          // even horse left
+          // left horses
           if (horseIndex % 2 == 0) {
             moving.left(1);
           } else {
@@ -170,43 +187,71 @@ public class BoardPanel extends JPanel {
             moving.down(1);
           }
 
-        } else {
-          moving.up(MAX_STAIRS + 1);
+        } 
+        else {
+          moving.resetMove();
+          moving.up(6);
           moving.right(1);
 
           int len = h.getLength();
-          int i = 0;
 
-          while (len / QUARTER > 0) {
-            moving.setDir(Directioner.Direction.values()[(i++) % Directioner.Direction.values().length]);
-            len /= QUARTER;
-          }
+          System.out.println("AI: " + (directionIndex+1) + " | pawn: " + horseIndex + " | length: " + len);
 
-          // down
-          int tmp = BARNS;
-          while (len > 0 && tmp > 0) {
-            moving.down(1);
-            tmp--;
+          while (len > 0) {
+            if (len <= 4) {
+              moving.down(1);
+            }
+            else if (len > 4 && len <= 10) {
+              if (len == 5) moving.down(1); // avoid the edge
+              moving.right(1);
+            }
+            else if (len > 10 && len <= 12) {
+              moving.down(1);
+            }
+            else if (len > 12 && len <= 17) {
+              moving.left(1);
+            }
+            else if (len > 17 && len <= 23) {
+              if (len == 18) moving.left(1); // avoid the edge
+              moving.down(1);
+            }
+            else if (len > 23 && len <= 25) {
+              moving.left(1);
+            }
+            else if (len > 25 && len <= 30) {
+              moving.up(1);
+            }
+            else if (len > 30 && len <= 36) {
+              if (len == 31) moving.up(1); // avoid the edge
+              moving.left(1);
+            }
+            else if (len > 36 && len <= 38) {
+              moving.up(1);
+            }
+            else if (len > 38 && len <= 43) {
+              moving.right(1);
+            }
+            else if (len > 43 && len <= 49) {
+              if (len == 44) moving.right(1); // avoid the edge
+              moving.up(1);
+            }
+            else if (len > 49 && len <= 50) {
+              moving.right(1);
+            }
+            else {
+              System.out.println("Length > 50");
+              break;
+            }
             len--;
           }
-
-          if (len > 0) {
-            tmp = BARNS;
-          }
-          while (len > 0 && tmp > 0) {
-            moving.right(1);
-            tmp--;
-            len--;
-          }
-
-          moving.down(len);
-
         }
 
         pawnDrawer.draw(g);
         horseIndex++;
       }
     }
+
+    System.out.println("-- END --");
   }
 
   public void resize(int size) {

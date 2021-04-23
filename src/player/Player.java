@@ -61,7 +61,7 @@ public abstract class Player {
       if (h.isInBarns() && diceValue == 6) availableActions.add(new AvailableActions(BARNS_OUT, i));
       else {
         if (h.canStairs()) availableActions.add(new AvailableActions(STAIRS_UP, i));
-        else availableActions.add(new AvailableActions(MOVE, i));
+        else if (!h.isInBarns()) availableActions.add(new AvailableActions(MOVE, i));
       }
     }
 

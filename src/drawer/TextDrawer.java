@@ -100,8 +100,7 @@ public class TextDrawer extends CenterDrawer {
     Rectangle2D r2d = g.getFontMetrics(this.font).getStringBounds(this.text, g);
 
     int x = Math.round(topx - ((float) r2d.getWidth() / 2.f));
-    int y = Math.round(topy + ((float) (r2d.getHeight() + lm.getHeight()) / 4.f))
-        - (g.getFontMetrics(this.font).getAscent() / 4);
+    int y = Math.round(topy + ((float) (r2d.getHeight() + lm.getHeight()) / 4.f)) - (g.getFontMetrics(this.font).getAscent() / 4);
 
     g.drawString(text, x, y);
     g.setFont(oldFont);
