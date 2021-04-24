@@ -19,8 +19,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+//import java.awt.event.KeyEvent;
 
 public class BoardPanel extends JPanel {
 private static final long serialVersionUID = 1L;
@@ -278,30 +277,35 @@ public BoardPanel(int size) {
     this.setMinimumSize(s);
   }
 
-  public void keyPressed(KeyEvent k){
+ /* public void keyPressed(KeyEvent k){
 	do{
 		switch(k.getKeyChar()){
 
 		case '&' :  //Horse 1
-			
+			System.out.println("Horse 1");
 			break; 
 			
 		case 'é' :  //Horse 2
-			
+		System.out.println("Horse 2");
+
 			break; 
 
 		case '"' :  //Horse 3
-			
+		System.out.println("Horse 3");
+
 			break; 
 
 		case '\'' :  //Horse 4
-			
+		System.out.println("Horse 4");
+
 			break;
 
 		default :
 			System.out.println("ERROR");
 			break;
 		}
-	}while(k != '&');
+	}while(k.getKeyCode() != 150 && k.getKeyCode() != 128 && k.getKeyCode() != 152 && k.getKeyCode() != 222);
   }
+*/
+  
 }
