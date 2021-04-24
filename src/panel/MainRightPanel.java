@@ -16,8 +16,8 @@ public class MainRightPanel extends JPanel {
 
   public MainRightPanel() {
     this.setLayout(new GridLayout(3, 1));
-    this.setMinimumSize(new Dimension(250, 0));
-    this.setPreferredSize(new Dimension(250, 0));
+    this.setMinimumSize(new Dimension(200, 0));
+    this.setPreferredSize(new Dimension(200, 0));
 
     diceButton = new JButton("Roll dice");
     Manager.getInstance().setDiceButton(diceButton);
@@ -35,7 +35,6 @@ public class MainRightPanel extends JPanel {
     this.add(scrollPane);
     MainRightPanel.addLog(new ActionLog(Color.black, "", "<b>Game Information:</b><br><br>"));
     
-
     diceButton.addActionListener(e -> {
       diceButton.setEnabled(false);
       DicePanel.getInstance().startRoll();

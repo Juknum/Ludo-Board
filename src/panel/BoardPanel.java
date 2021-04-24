@@ -157,7 +157,7 @@ public class BoardPanel extends JPanel {
       textDirectioner.down(.95f);
       textDirectioner.right(.01f);
 
-      for (int ni = MAX_STAIRS; ni > 0; ni--) {
+      for (int ni = 1; ni <= MAX_STAIRS; ni++) {
         g.setColor(TEXT_COLOR);
         textDrawer.draw(g, "" + ni);
         textDirectioner.down(1);
@@ -182,7 +182,7 @@ public class BoardPanel extends JPanel {
           moving.setDir(Directioner.Direction.values()[(directionIndex + 3) % 4]);
           moving.resetMove();
 
-          moving.up(MAX_STAIRS + 1 - h.getStairs());
+          moving.up(h.getStairs());
         } 
         else if (h.isInBarns()) {
 
@@ -207,7 +207,6 @@ public class BoardPanel extends JPanel {
         else {
 
           moving.setDir(Directioner.Direction.values()[(directionIndex+3) % 4 ]);
-
           moving.resetMove();
           moving.up(6);
           moving.right(1);
@@ -255,7 +254,7 @@ public class BoardPanel extends JPanel {
               moving.right(1);
             }
             else {
-              System.out.println("Length > 50");
+              System.out.println("Length > 50"); // should never happen
               break;
             }
             len--;
@@ -265,13 +264,8 @@ public class BoardPanel extends JPanel {
         pawnDrawer.draw(g);
         horseIndex++;
 
-        //System.out.println("AI: " + (directionIndex + 1) + "\t| pawn: " + horseIndex + "\t| length: " + h.getLength() + "\t| barns: " + h.isInBarns() + "\t| stairs: " + h.getStairs());
-        //if (horseIndex == 4) System.out.println("---");
-
       }
     }
-
-    System.out.println("-- END --");
   }
 
   public void resize(int size) {

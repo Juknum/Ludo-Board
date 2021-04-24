@@ -1,9 +1,11 @@
 package src.game;
 
+import static src.game.CONSTANTS.TEXT_COLOR;
+
 import java.awt.*;
 
 public class ActionLog {
-  private Color c = CONSTANTS.TEXT_COLOR;
+  private Color c = TEXT_COLOR;
   private String prefix = "system";
   private final String content;
 

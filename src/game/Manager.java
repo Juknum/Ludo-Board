@@ -67,7 +67,7 @@ public class Manager {
     do {
       if (DEBUG) nb = NB_BOT_PLAYERS;
       else {
-        String cnt = JOptionPane.showInputDialog(c, "How many bots?", MIN_PLAYER);
+        String cnt = JOptionPane.showInputDialog(c, "How many COM?", MIN_PLAYER);
         try {
           nb = Integer.parseInt(cnt);
         } catch (NumberFormatException ignored) {}
@@ -96,6 +96,10 @@ public class Manager {
 
   }
 
+  /**
+   * Ends the turn of the given player
+   * @param p Player
+   */
   public static void actionEnded(Player p) {
     gamePanel.repaint();
 
@@ -109,11 +113,17 @@ public class Manager {
     }
   }
 
+  /**
+   * Switch the currentPLayerIndex to the next player
+   */
   public static void nextPlayer() {
     currentPlayerIndex = (currentPlayerIndex + 1) % playerList.size();
     newRound(currentPlayerIndex);
   }
 
+  /**
+   * Determines which player will start to play following games rules
+   */
   public static void startRound() {
     int beginnerDice = 0;
 
@@ -122,7 +132,6 @@ public class Manager {
 
       Random diceRandom = new Random();
       int diceValue = 1 + diceRandom.nextInt(6);
-      System.out.println(diceValue + " (" + i + ") ? " + beginnerDice + " (" + currentPlayerIndex + ")");
 
       MainRightPanel.addLog(new ActionLog(getPlayer(i).getColor(), getPlayerName(i), "throw the dice: " + diceValue));
       
@@ -136,6 +145,10 @@ public class Manager {
 
   }
 
+  /**
+   * Start a round with the given player index
+   * @param playerIndex int
+   */
   public static void newRound(int playerIndex) {
     DicePanel.getInstance().setPlayer(playerIndex, playerList.get(playerIndex).getName());
     diceButton.setEnabled(true);
@@ -143,23 +156,45 @@ public class Manager {
     if (getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
   }
 
+  /**
+   * Get the current playing player
+   * @return Player
+   */
   private static Player getCurrentPlayer() {
     return playerList.get(currentPlayerIndex);
   }
 
+  /**
+   * Get the current playing player name
+   * @return String
+   */
   private static String getCurrentPlayerName() {
-    return playerList.get(currentPlayerIndex).getName();
+    return getCurrentPlayer().getName();
   }
 
+  /**
+   * Get player of the given index
+   * @param index
+   * @return Player
+   */
   private static Player getPlayer(int index) {
     if (index < 0) return null;
     return playerList.get(index % playerList.size());
   }
 
+  /**
+   * Get player name of the given index
+   * @param index int
+   * @return String
+   */
   private static String getPlayerName(int index) {
     return getPlayer(index).getName();
   }
 
+  /**
+   * Get the actual list of players
+   * @return ArrayList<Player>
+   */
   public static ArrayList<Player> getPlayerList() {
     return playerList;
   }

@@ -5,57 +5,100 @@ import static src.game.CONSTANTS.MAX_LENGTH;
 
 public class Horse {
   private boolean inBarns = true;
+  private boolean goalReached = false;
   private int length = 0;
-  private int stairs = 0;
+  private int stairs = 7;
 
+  /**
+   * Move a horse forward, following the latest dice value
+   */
   public void move() {
-    int v = DicePanel.getLastDice();
+    int l = DicePanel.getLastDice();
 
-    if (v + length > MAX_LENGTH) {
-      int diff = MAX_LENGTH - length;
-      int left = v - diff;
-      length += diff - left;
-    }
-
-    else length += v;
+    /**
+     * INFO: 
+     * si le cheval se trouve a 3 case de l'escalier et qu'il fait 4, 
+     * il monte sur la 1ère marche ou bien avance de 3 et attend le tour d'après?
+     * 
+     * > état actuel: il avance de 3 et attend le tour d'après,
+     */
+    if (length != MAX_LENGTH) length = (length + l > MAX_LENGTH) ? MAX_LENGTH : length + l;
+    
   }
 
   public boolean isInStairs() {
-    return length == MAX_LENGTH;
+    return stairs < 7;
   }
 
+  /**
+   * a horse can stairs if:
+   * it reached the latest tile,
+   * && the substraction of left stairs & the dice value can't go below 0
+   * @return Boolean
+   */
   public boolean canStairs() {
     int diceValue = DicePanel.getLastDice();
 
-    if (!isInStairs()) return false;
-    else return diceValue == stairs;
+    // ATENTION: if the player hasn't eated any horse, he can't place a horse inside his stairs
+    if (length == MAX_LENGTH) {
+      if (stairs - diceValue <= 0) return false;
+      else return true;
+    }
+    else return false;
+
   }
 
+  /**
+   * horse stairs decrease by the dice value, if canStairs()
+   */
   public void stairs() {
     if (!canStairs()) return;
-    stairs++;
+
+    int diceValue = DicePanel.getLastDice();
+    stairs -= diceValue;
+
+    if (stairs == 1) goalReached = true;
   }
 
+  /**
+   * Get the number of step to finish the stairs of this horse
+   * @return stairs value
+   */
   public int getStairs() {
     return stairs;
   }
 
+  /**
+   * Get the length (number of tile) that a horse as reached
+   * @return length value
+   */
   public int getLength() {
     return length;
   }
 
+  /**
+   * Get the barns status of a horse
+   * @return Boolean
+   */
   public boolean isInBarns() {
     return inBarns;
   }
 
+  /**
+   * Get the state of a horse, does it have reached the highest step?
+   * @return Boolean
+   */
+  public boolean isGoalReached() {
+    return goalReached;
+  }
+
+  /**
+   * Set the barns status of a horse & reset attributes
+   * @param inBarns
+   */
   public void setInBarns(boolean inBarns) {
     this.inBarns = inBarns;
     length = 0;
-    stairs = 1;
-  }
-
-  @Override
-  public String toString() {
-    return "{ inBarns: " + inBarns + ", length: " + length + ", stairs: " + stairs + "}";
+    stairs = 7;
   }
 }

@@ -10,6 +10,7 @@ import src.panel.DicePanel;
 import src.panel.MainRightPanel;
 
 import static src.game.CONSTANTS.NB_HORSES;
+import static src.game.CONSTANTS.MAX_LENGTH;
 import static src.game.AvailableActions.actions.*;
 
 public abstract class Player {
@@ -39,18 +40,6 @@ public abstract class Player {
     return NB_HORSES - horsesIn();
   }
 
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder("Player: '" + name + "': " + horsesIn() + " horses(s) in stable");
-
-    for (Horse h : horses) {
-      builder.append("\r\n");
-      builder.append(h.toString());
-    }
-
-    return builder.toString();
-  }
-
   public String getName() {
     return name;
   }
@@ -63,7 +52,7 @@ public abstract class Player {
       if (h.isInBarns() && diceValue == 6) availableActions.add(new AvailableActions(BARNS_OUT, i));
       else {
         if (h.canStairs()) availableActions.add(new AvailableActions(STAIRS_UP, i));
-        else if (!h.isInBarns()) availableActions.add(new AvailableActions(MOVE, i));
+        else if (!h.isInBarns() && h.getLength() != MAX_LENGTH) availableActions.add(new AvailableActions(MOVE, i));
       }
     }
 
@@ -77,14 +66,14 @@ public abstract class Player {
     switch (action.action) {
     case STAIRS_UP:
       h.stairs();
-      content += "stairs " + h.getStairs();
+      content += h.isGoalReached() ? "join the hourse!" : "stairs,  " + h.getStairs() + " left";
       break;
     case BARNS_OUT:
       h.setInBarns(false);
       content += "out of barn";
       break;
     case MOVE:
-      content += "move forward of " + DicePanel.getLastDice();
+      content += "move of " + DicePanel.getLastDice();
       h.move();
       break;
     default:
