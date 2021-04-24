@@ -21,7 +21,7 @@ public final class CONSTANTS {
   public static int NB_HORSES = 4;
 
   @SuppressWarnings("PointlessArithmeticExpression")
-  public static final int MAX_LENGTH = 4 * QUARTER - 1 + 6; //BARNS * 4 + (COUNT - BARNS * 2 - 2) * 4 + 4 - 1;
+  public static final int MAX_LENGTH = 50;
 
   public static final Color[] colors = {
     new Color(0xffd800), 

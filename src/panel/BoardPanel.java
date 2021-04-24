@@ -6,10 +6,10 @@ import src.player.Player;
 
 import src.drawer.Directioner;
 import src.drawer.DiscDrawer;
+import src.drawer.StarDrawer;
 import src.drawer.PawnDrawer;
 import src.drawer.RectDrawer;
 import src.drawer.TextDrawer;
-import src.drawer.Directioner.Direction;
 
 import static src.game.CONSTANTS.*;
 
@@ -22,6 +22,7 @@ public class BoardPanel extends JPanel {
   private static final long serialVersionUID = 1L;
 
   private final DiscDrawer discDrawer = new DiscDrawer();
+  private final StarDrawer starDrawer = new StarDrawer();
   private final RectDrawer rectDrawer = new RectDrawer();
   private final PawnDrawer pawnDrawer = new PawnDrawer();
   private final Directioner textDirectioner = new Directioner(COUNT / 2.f, COUNT / 2.f);
@@ -60,6 +61,9 @@ public class BoardPanel extends JPanel {
 
     pawnDrawer.setDirectioner(moving);
     pawnDrawer.setScale(spacew * .7f);
+
+    starDrawer.setDirectioner(moving);
+    starDrawer.setScale(spacew);
 
     // text
     textDirectioner.setScale(spacew);
@@ -102,13 +106,15 @@ public class BoardPanel extends JPanel {
       }
 
       // circles
-      g.setColor(darkColors[colorIndex]);
+      g.setColor(darkColors[(colorIndex + 3) % darkColors.length]);
       discDrawer.setDiameter(CELL_SIZE);
 
       moving.up(1);
       discDrawer.fill(g);
       moving.right(1);
       discDrawer.fill(g);
+
+      g.setColor(darkColors[colorIndex]);
 
       for (int di = -1; di < BARNS; di++) {
         moving.down(1);
@@ -130,6 +136,14 @@ public class BoardPanel extends JPanel {
       for (int di = -1; di < BARNS; di++) {
         moving.right(1);
         discDrawer.fill(g);
+
+        if (di == 2) {
+          g.setColor(Color.white);
+          starDrawer.setSize(16, 8, 16, 8);
+          starDrawer.fill(g);
+          
+          g.setColor(darkColors[colorIndex]);
+        }
       }
     }
 
@@ -158,20 +172,22 @@ public class BoardPanel extends JPanel {
 
     // pawn
     ArrayList<Player> players = Manager.getPlayerList();
-    for (int directionIndex = 0; directionIndex < Directioner.Direction.values().length; directionIndex++) {    
-      moving.setDir(Directioner.Direction.values()[directionIndex]);
+    for (int directionIndex = 0; directionIndex < players.size(); directionIndex++) {    
       g.setColor(pawnColors[directionIndex]);
 
-      System.out.println(Directioner.Direction.values()[directionIndex]);
-
-      int horseIndex = 0;    
+      int horseIndex = 0;
       for (Horse h : players.get(directionIndex).getHorses()) {
-        moving.resetMove();
 
         if (h.isInStairs()) {
-          moving.up(MAX_STAIRS - h.getStairs());
+          moving.setDir(Directioner.Direction.values()[(directionIndex + 3) % 4]);
+          moving.resetMove();
+
+          moving.up(MAX_STAIRS + 1 - h.getStairs());
         } 
         else if (h.isInBarns()) {
+
+          moving.setDir(Directioner.Direction.values()[directionIndex % 4]);
+          moving.resetMove();
           moving.setMove(-(1.5f + BARNS / 2.f), -(1.5f + BARNS / 2.f));  
 
           // left horses
@@ -189,14 +205,14 @@ public class BoardPanel extends JPanel {
 
         } 
         else {
+
+          moving.setDir(Directioner.Direction.values()[(directionIndex+3) % 4 ]);
+
           moving.resetMove();
           moving.up(6);
           moving.right(1);
 
           int len = h.getLength();
-
-          System.out.println("AI: " + (directionIndex+1) + " | pawn: " + horseIndex + " | length: " + len);
-
           while (len > 0) {
             if (len <= 4) {
               moving.down(1);
@@ -248,6 +264,10 @@ public class BoardPanel extends JPanel {
 
         pawnDrawer.draw(g);
         horseIndex++;
+
+        //System.out.println("AI: " + (directionIndex + 1) + "\t| pawn: " + horseIndex + "\t| length: " + h.getLength() + "\t| barns: " + h.isInBarns() + "\t| stairs: " + h.getStairs());
+        //if (horseIndex == 4) System.out.println("---");
+
       }
     }
 

@@ -6,15 +6,17 @@ import static src.game.CONSTANTS.MAX_LENGTH;
 public class Horse {
   private boolean inBarns = true;
   private int length = 0;
-  private int stairs = 1;
+  private int stairs = 0;
 
   public void move() {
     int v = DicePanel.getLastDice();
+
     if (v + length > MAX_LENGTH) {
       int diff = MAX_LENGTH - length;
       int left = v - diff;
       length += diff - left;
     }
+
     else length += v;
   }
 
@@ -24,6 +26,7 @@ public class Horse {
 
   public boolean canStairs() {
     int diceValue = DicePanel.getLastDice();
+
     if (!isInStairs()) return false;
     else return diceValue == stairs;
   }

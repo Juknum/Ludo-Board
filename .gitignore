@@ -2,3 +2,4 @@
 .vs
 .replit
 /bin/
+.vscode/launch.json

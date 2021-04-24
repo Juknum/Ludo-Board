@@ -3,9 +3,11 @@ package src.player;
 import java.awt.*;
 import java.util.ArrayList;
 
+import src.game.ActionLog;
 import src.game.AvailableActions;
 import src.game.Manager;
 import src.panel.DicePanel;
+import src.panel.MainRightPanel;
 
 import static src.game.CONSTANTS.NB_HORSES;
 import static src.game.AvailableActions.actions.*;
@@ -89,7 +91,7 @@ public abstract class Player {
       break;
     }
 
-    System.out.println(content);
+    MainRightPanel.addLog(new ActionLog(color, name, content));
     Manager.actionEnded(this);
   }
 

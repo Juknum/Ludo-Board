@@ -3,9 +3,11 @@ package src.game;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 import src.panel.BoardPanel;
 import src.panel.DicePanel;
+import src.panel.MainRightPanel;
 import src.player.AIPlayer;
 import src.player.Player;
 import src.player.RealPlayer;
@@ -18,7 +20,7 @@ public class Manager {
 
   private static JButton diceButton;
   private static BoardPanel gamePanel;
-  private static int currentPlayerIndex;
+  private static int currentPlayerIndex = 0;
   private static final ArrayList<Player> playerList = new ArrayList<>(4);
 
   public void setDiceButton(JButton button) {
@@ -42,8 +44,6 @@ public class Manager {
 
   public void start(Component c) {
     playerList.clear();
-    currentPlayerIndex = 0;
-
     int nb = -1;
 
     // get real players:
@@ -78,6 +78,7 @@ public class Manager {
       playerList.add(new AIPlayer("AI " + (playerList.size() + 1), darkColors[playerList.size()]));
     }
 
+    startRound();
     newRound(currentPlayerIndex);
 
     DicePanel.getInstance().addRollEndListener(v -> {
@@ -88,6 +89,7 @@ public class Manager {
         if (availableActions.length == 1 || currentPlayer instanceof AIPlayer) currentPlayer.act(availableActions[0]);
       }
       else {
+        MainRightPanel.addLog(new ActionLog(currentPlayer.getColor(), currentPlayer.getName(), "Can't play!"));
         actionEnded(currentPlayer);
       }
     });
@@ -112,6 +114,28 @@ public class Manager {
     newRound(currentPlayerIndex);
   }
 
+  public static void startRound() {
+    int beginnerDice = 0;
+
+    for (int i = 0; i < playerList.size(); i++) {
+      DicePanel.getInstance().setPlayer(i, playerList.get(i).getName());
+
+      Random diceRandom = new Random();
+      int diceValue = 1 + diceRandom.nextInt(6);
+      System.out.println(diceValue + " (" + i + ") ? " + beginnerDice + " (" + currentPlayerIndex + ")");
+
+      MainRightPanel.addLog(new ActionLog(getPlayer(i).getColor(), getPlayerName(i), "throw the dice: " + diceValue));
+      
+      if (beginnerDice < diceValue) {
+        currentPlayerIndex = i;
+        beginnerDice = diceValue;
+      }
+    }
+
+    MainRightPanel.addLog(new ActionLog(getCurrentPlayer().getColor(), getCurrentPlayerName(), "starts to play!<hr>"));
+
+  }
+
   public static void newRound(int playerIndex) {
     DicePanel.getInstance().setPlayer(playerIndex, playerList.get(playerIndex).getName());
     diceButton.setEnabled(true);
@@ -121,6 +145,19 @@ public class Manager {
 
   private static Player getCurrentPlayer() {
     return playerList.get(currentPlayerIndex);
+  }
+
+  private static String getCurrentPlayerName() {
+    return playerList.get(currentPlayerIndex).getName();
+  }
+
+  private static Player getPlayer(int index) {
+    if (index < 0) return null;
+    return playerList.get(index % playerList.size());
+  }
+
+  private static String getPlayerName(int index) {
+    return getPlayer(index).getName();
   }
 
   public static ArrayList<Player> getPlayerList() {

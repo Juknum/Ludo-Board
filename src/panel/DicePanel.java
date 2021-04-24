@@ -107,8 +107,9 @@ public class DicePanel extends JLabel {
   }
 
   public void setPlayer(int playerIndex, String playerName) {
-    this.setText("<html>It's the turn of <b style='color: #"
-      + Integer.toHexString(CONSTANTS.darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" + playerName
-      + "</b></html>");
+    this.setText(
+      "<html>It's the turn of <b style='color: #"+ Integer.toHexString(CONSTANTS.darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
+      + playerName + 
+      "</b></html>");
   }
 }
