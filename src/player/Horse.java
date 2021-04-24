@@ -6,6 +6,7 @@ import static src.game.CONSTANTS.MAX_LENGTH;
 public class Horse {
   private boolean inBarns = true;
   private boolean goalReached = false;
+  private boolean isSafe = false;
   private int length = 0;
   private int stairs = 7;
 
@@ -23,7 +24,15 @@ public class Horse {
      * > état actuel: il avance de 3 et attend le tour d'après,
      */
     if (length != MAX_LENGTH) length = (length + l > MAX_LENGTH) ? MAX_LENGTH : length + l;
-    
+
+    switch (length) {
+      case 0: case 8: case 13: case 21: case 26: case 34: case 39: case 47:
+        isSafe = true;
+        break;
+      default:
+        isSafe = false;
+        break;
+    }
   }
 
   public boolean isInStairs() {
@@ -45,7 +54,6 @@ public class Horse {
       else return true;
     }
     else return false;
-
   }
 
   /**
@@ -90,6 +98,13 @@ public class Horse {
    */
   public boolean isGoalReached() {
     return goalReached;
+  }
+
+  /**
+   * Tell if a horse is in a safe zone
+   */
+  public boolean isItSafe() {
+    return isSafe;
   }
 
   /**

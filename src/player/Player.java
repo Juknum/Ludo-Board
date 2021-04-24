@@ -44,6 +44,44 @@ public abstract class Player {
     return name;
   }
 
+  /**
+   * Get the number of horse in the next case the horse will be
+   * @param diceValue
+   * @return int
+   */
+  public int upcomingHorses(int myLength) {
+    // each player is schifted by 12 cells
+    int shift = 13;
+    int nbH = 0;
+    int myGlobalLength = 0;
+
+    if (name == Manager.playerList.get(0).getName()) myGlobalLength = myLength;
+    else if (name == Manager.playerList.get(1).getName()) myGlobalLength = myLength + shift;
+    else if (name == Manager.playerList.get(2).getName()) myGlobalLength = myLength + shift*2;
+    else if (name == Manager.playerList.get(3).getName()) myGlobalLength = myLength + shift*3;
+    
+    if (myGlobalLength > MAX_LENGTH + 1) myGlobalLength -= MAX_LENGTH+1;
+
+    System.out.println(myGlobalLength);
+
+    for (int p = 0; p < Manager.playerList.size(); p++) {
+      Player player = Manager.playerList.get(p);
+      for (int h = 0; h < player.getHorses().length; h++) {
+        Horse playerHorse = player.getHorses()[h];
+        
+        int horseGlobalLength = playerHorse.getLength() + shift * p;
+        if (horseGlobalLength > MAX_LENGTH+1) horseGlobalLength -= MAX_LENGTH+1;
+
+        if (!playerHorse.isInBarns() && horseGlobalLength == myGlobalLength) {
+          System.out.println("player: " + player.getName() + " horse: " + h + " myGlobalLength: " + horseGlobalLength);
+          nbH++;
+        }
+      }
+    }
+
+    return nbH;
+  }
+
   public AvailableActions[] availableActions(int diceValue) {
     ArrayList<AvailableActions> availableActions = new ArrayList<>(horses.length);
 
@@ -52,7 +90,13 @@ public abstract class Player {
       if (h.isInBarns() && diceValue == 6) availableActions.add(new AvailableActions(BARNS_OUT, i));
       else {
         if (h.canStairs()) availableActions.add(new AvailableActions(STAIRS_UP, i));
-        else if (!h.isInBarns() && h.getLength() != MAX_LENGTH) availableActions.add(new AvailableActions(MOVE, i));
+        else if (!h.isInBarns() && h.getLength() != MAX_LENGTH) {
+        
+          /* check for others horses in the upcoming cell:
+           * if there is 2 horses, the horse can't go to this case and pass (block)
+           */
+          if (upcomingHorses(h.getLength() + diceValue) < 2) availableActions.add(new AvailableActions(MOVE, i));
+        }
       }
     }
 
@@ -66,14 +110,14 @@ public abstract class Player {
     switch (action.action) {
     case STAIRS_UP:
       h.stairs();
-      content += h.isGoalReached() ? "join the hourse!" : "stairs,  " + h.getStairs() + " left";
+      content += h.isGoalReached() ? "join the house!" : "stairs,  " + h.getStairs() + " left.";
       break;
     case BARNS_OUT:
       h.setInBarns(false);
-      content += "out of barn";
+      content += "out of barn.";
       break;
     case MOVE:
-      content += "move of " + DicePanel.getLastDice();
+      content += "take " + DicePanel.getLastDice() + " steps.";
       h.move();
       break;
     default:

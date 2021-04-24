@@ -21,7 +21,7 @@ public class Manager {
   private static JButton diceButton;
   private static BoardPanel gamePanel;
   private static int currentPlayerIndex = 0;
-  private static final ArrayList<Player> playerList = new ArrayList<>(4);
+  public static final ArrayList<Player> playerList = new ArrayList<>(4);
 
   public void setDiceButton(JButton button) {
     diceButton = button;
@@ -177,7 +177,7 @@ public class Manager {
    * @param index
    * @return Player
    */
-  private static Player getPlayer(int index) {
+  public static Player getPlayer(int index) {
     if (index < 0) return null;
     return playerList.get(index % playerList.size());
   }
