@@ -41,6 +41,11 @@ public class MainRightPanel extends JPanel {
     });
   }
 
+  /******************************************
+   * Add the last action to a JscrollPanel in a text form to get logs of the game
+   * 
+   * @param log
+   */
   public static void addLog(ActionLog log) {
     actionLogs.add(log);
 
@@ -55,4 +60,5 @@ public class MainRightPanel extends JPanel {
     JScrollBar vertical = scrollPane.getVerticalScrollBar();
     vertical.setValue(vertical.getMaximum());
   }
+  
 }

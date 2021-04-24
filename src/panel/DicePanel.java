@@ -31,6 +31,7 @@ public class DicePanel extends JLabel {
   }
 
   private static DicePanel instance;
+  
   public static DicePanel getInstance() {
     if (instance == null) instance = new DicePanel();
     return instance;
