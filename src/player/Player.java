@@ -1,17 +1,19 @@
-package src.player;
+package player;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import src.game.ActionLog;
-import src.game.AvailableActions;
-import src.game.Manager;
-import src.panel.DicePanel;
-import src.panel.MainRightPanel;
+import game.ActionLog;
+import game.AvailableActions;
+import game.Manager;
+import panel.DicePanel;
+import panel.MainRightPanel;
 
-import static src.game.CONSTANTS.NB_HORSES;
-import static src.game.CONSTANTS.MAX_LENGTH;
-import static src.game.AvailableActions.actions.*;
+import static game.CONSTANTS.NB_HORSES;
+import static game.CONSTANTS.MAX_LENGTH;
+import static game.CONSTANTS.SHIFT;
+import static game.CONSTANTS.DEBUG;
+import static game.AvailableActions.actions.*;
 
 public abstract class Player {
   private final String name;
@@ -20,6 +22,8 @@ public abstract class Player {
     new Horse(), new Horse(),
     new Horse(), new Horse()
   };
+  
+  public boolean hasEatenSomeone = false;
 
   public Horse[] getHorses() {
     return horses;
@@ -49,37 +53,110 @@ public abstract class Player {
    * @param diceValue
    * @return int
    */
-  public int upcomingHorses(int myLength) {
-    // each player is schifted by 12 cells
-    int shift = 13;
-    int nbH = 0;
-    int myGlobalLength = 0;
-
-    if (name == Manager.playerList.get(0).getName()) myGlobalLength = myLength;
-    else if (name == Manager.playerList.get(1).getName()) myGlobalLength = myLength + shift;
-    else if (name == Manager.playerList.get(2).getName()) myGlobalLength = myLength + shift*2;
-    else if (name == Manager.playerList.get(3).getName()) myGlobalLength = myLength + shift*3;
-    
-    if (myGlobalLength > MAX_LENGTH + 1) myGlobalLength -= MAX_LENGTH+1;
-
-    System.out.println(myGlobalLength);
+  public int getUpcomingHorses(int globalLength) {
+    int nbHorse = 0;
 
     for (int p = 0; p < Manager.playerList.size(); p++) {
       Player player = Manager.playerList.get(p);
-      for (int h = 0; h < player.getHorses().length; h++) {
+      
+      for (int h = 0; h < NB_HORSES; h++) {
         Horse playerHorse = player.getHorses()[h];
-        
-        int horseGlobalLength = playerHorse.getLength() + shift * p;
-        if (horseGlobalLength > MAX_LENGTH+1) horseGlobalLength -= MAX_LENGTH+1;
 
-        if (!playerHorse.isInBarns() && horseGlobalLength == myGlobalLength) {
-          System.out.println("player: " + player.getName() + " horse: " + h + " myGlobalLength: " + horseGlobalLength);
-          nbH++;
+        if (!playerHorse.isInBarns() && getGlobalLengthOf(playerHorse.getLength(), p) == globalLength) nbHorse++;
+      }
+    }
+
+    return nbHorse;
+  }
+
+  /**
+   * Check if a horse can remove others horses from the next tile
+   * @param globalLength int
+   * @return boolean
+   */
+  public boolean canRemoveHorse(int globalLength) {
+    if (getUpcomingHorses(globalLength) != 1) return false;
+
+    switch (globalLength) {
+      // safe zone
+      case 0: case 8: case 13: case 21: case 26: case 34: case 39: case 47:
+        return false;
+      default:
+        if (color == upcomingPawn(globalLength)) return false;
+        else return true;
+    }
+  }
+
+  /**
+   * Remove horses from a given global length (tile)
+   * @param globalLength int
+   */
+  public void removeHorse(int globalLength) {
+    int nbHorseRemoved = 0;
+
+    for (int p = 0; p < Manager.playerList.size(); p++) {
+      Player player = Manager.playerList.get(p);
+
+      for (int h = 0; h < NB_HORSES; h++) {
+        Horse playerHorse = player.getHorses()[h];
+
+        if (getGlobalLengthOf(playerHorse.getLength(), p) == globalLength && !playerHorse.isInStairs()) {
+          playerHorse.setInBarns(true);
+          nbHorseRemoved++;
         }
       }
     }
 
-    return nbH;
+    if (nbHorseRemoved > 0) { hasEatenSomeone = true; System.out.println(name + " has eated someone"); }
+  }
+
+  /**
+   * get the color of the upcoming horse
+   * @param globalLength int
+   * @return Color
+   */
+  public Color upcomingPawn(int globalLength) {
+    for (int p = 0; p < Manager.playerList.size(); p++) {
+      Player player = Manager.playerList.get(p);
+
+      for (int h = 0; h < NB_HORSES; h++) {
+        Horse playerHorse = player.getHorses()[h];
+
+        if (getGlobalLengthOf(playerHorse.getLength(), p) == globalLength) return player.getColor();
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Get global length (0-51 from the yellow start) of a given player horse
+   * @param length int
+   * @param playerIndex int
+   * @return int
+   */
+  public int getGlobalLengthOf(int length, int playerIndex) {
+    int globalLength = length + SHIFT * playerIndex;
+    if (globalLength > MAX_LENGTH + 1) globalLength -= MAX_LENGTH + 2;
+
+    return globalLength;
+  }
+
+  /**
+   * Get global length of the current player horse
+   * @param length int
+   * @return int
+   */
+  public int getGlobalLength(int length) {
+    int globalLength = 0;
+    if (color == Manager.playerList.get(0).getColor()) globalLength = length;
+    else if (color == Manager.playerList.get(1).getColor()) globalLength = length + SHIFT;
+    else if (color == Manager.playerList.get(2).getColor()) globalLength = length + SHIFT * 2;
+    else if (color == Manager.playerList.get(3).getColor()) globalLength = length + SHIFT * 3;
+
+    if (globalLength > MAX_LENGTH + 1) globalLength -= MAX_LENGTH + 2;
+
+    return globalLength;
   }
 
   public AvailableActions[] availableActions(int diceValue) {
@@ -87,15 +164,21 @@ public abstract class Player {
 
     for (int i = 0; i < horses.length; i++) {
       Horse h = horses[i];
+
       if (h.isInBarns() && diceValue == 6) availableActions.add(new AvailableActions(BARNS_OUT, i));
       else {
-        if (h.canStairs()) availableActions.add(new AvailableActions(STAIRS_UP, i));
-        else if (!h.isInBarns() && h.getLength() != MAX_LENGTH) {
+        if (h.canStairs() && hasEatenSomeone) availableActions.add(new AvailableActions(STAIRS_UP, i));
+        else if (!h.isInBarns() && h.getLength() < MAX_LENGTH) {
         
           /* check for others horses in the upcoming cell:
-           * if there is 2 horses, the horse can't go to this case and pass (block)
-           */
-          if (upcomingHorses(h.getLength() + diceValue) < 2) availableActions.add(new AvailableActions(MOVE, i));
+          * if there is 2 horses, the horse can't go to this case and pass (block)
+          */
+          int nextLength = getGlobalLength(h.getLength() + diceValue);
+
+          if (getUpcomingHorses(nextLength) < 2) {
+            if (canRemoveHorse(nextLength)) availableActions.add(new AvailableActions(JUMP_HORSE, i));
+            else availableActions.add(new AvailableActions(MOVE, i));
+          }
         }
       }
     }
@@ -107,22 +190,31 @@ public abstract class Player {
   public void act(AvailableActions action) {
     Horse h = horses[action.pawnIndex];
     String content = "Horse " + (action.pawnIndex + 1) + ": ";
+
+    int diceValue = DicePanel.getLastDice();
     switch (action.action) {
-    case STAIRS_UP:
-      h.stairs();
-      content += h.isGoalReached() ? "join the house!" : "stairs,  " + h.getStairs() + " left.";
-      break;
-    case BARNS_OUT:
-      h.setInBarns(false);
-      content += "out of barn.";
-      break;
-    case MOVE:
-      content += "take " + DicePanel.getLastDice() + " steps.";
-      h.move();
-      break;
-    default:
-      break;
+      case STAIRS_UP:
+        h.stairs();
+        content += h.isGoalReached() ? "join the home!" : "stairs,  " + (h.getStairs()-1) + " left.";
+        break;
+      case BARNS_OUT:
+        h.setInBarns(false);
+        content += "out of barn.";
+        break;
+      case MOVE:
+        content += "take " + diceValue + " steps.";
+        h.move(hasEatenSomeone);
+        break;
+      case JUMP_HORSE:
+        content += "take " + diceValue + " steps and<br>remove the oposant horse.";
+        removeHorse(getGlobalLength(h.getLength() + diceValue));
+        h.move(hasEatenSomeone);
+        break;
+      default:
+        break;
     }
+    
+    if (DEBUG) content += " (#" + getGlobalLength(h.getLength() + diceValue) + ")";
 
     MainRightPanel.addLog(new ActionLog(color, name, content));
     Manager.actionEnded(this);

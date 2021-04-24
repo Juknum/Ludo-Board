@@ -1,12 +1,13 @@
-package src.game;
+package game;
 
 import java.awt.*;
 
 public final class CONSTANTS {
-  public static final int BARNS      = 5;
-  public static final int COUNT      = 15;
-  public static final int QUARTER    = 6;
+  public static final int BARNS = 5;
+  public static final int COUNT = 15;
+  public static final int QUARTER = 6;
   public static final int MAX_STAIRS = 6;
+  public static final int SHIFT = 13;
 
   public static final boolean DEBUG = true;
 
@@ -14,7 +15,7 @@ public final class CONSTANTS {
   public static final int MAX_PLAYER = 4;
 
   public static final int NB_REAL_PLAYERS = 0;
-  public static final int NB_BOT_PLAYERS  = MAX_PLAYER - NB_REAL_PLAYERS;
+  public static final int NB_BOT_PLAYERS = MAX_PLAYER - NB_REAL_PLAYERS;
   
   public static final float CELL_SIZE = 0.85f;
   

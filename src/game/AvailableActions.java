@@ -1,18 +1,18 @@
-package src.game;
+package game;
 
 import java.util.Comparator;
 
 public class AvailableActions implements Comparable<AvailableActions>, Comparator<AvailableActions> {
   @Override
   public int compareTo(AvailableActions o) {
-    if (this.action == o.action) return 0;
-    if (this.action == actions.MOVE) return 1;
-    if (this.action == actions.STAIRS_UP) return -1;
 
-    /* OUT OF BARNS:
-     * Return if other: move = -1, stairs_up = 1;
-     */
-    return (o.action == actions.MOVE) ? -1 : 1;
+    if (this.action == o.action)           return  0; // we don't care if it's the same
+    if (this.action == actions.MOVE)       return  1; // LESS IMPORTANT
+    if (this.action == actions.JUMP_HORSE) return -1;
+    if (this.action == actions.BARNS_OUT)  return -2;
+    if (this.action == actions.STAIRS_UP)  return -3; // MOST IMPORTANT
+
+    else return 1;
   }
 
   @Override
@@ -23,7 +23,8 @@ public class AvailableActions implements Comparable<AvailableActions>, Comparato
   public enum actions {
     MOVE,
     BARNS_OUT,
-    STAIRS_UP
+    STAIRS_UP,
+    JUMP_HORSE
   }
 
   public actions action;

@@ -1,18 +1,18 @@
-package src.panel;
+package panel;
 
-import src.game.Manager;
+import game.Manager;
 
-import src.player.Horse;
-import src.player.Player;
+import player.Horse;
+import player.Player;
 
-import src.drawer.Directioner;
-import src.drawer.DiscDrawer;
-import src.drawer.StarDrawer;
-import src.drawer.PawnDrawer;
-import src.drawer.RectDrawer;
-import src.drawer.TextDrawer;
+import drawer.Directioner;
+import drawer.DiscDrawer;
+import drawer.StarDrawer;
+import drawer.PawnDrawer;
+import drawer.RectDrawer;
+import drawer.TextDrawer;
 
-import static src.game.CONSTANTS.*;
+import static game.CONSTANTS.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -153,7 +153,7 @@ public BoardPanel(int size) {
     // text squares central
     TextDrawer textDrawer = new TextDrawer(textDirectioner, "", g);
     textDrawer.setSize(spacew, spaceh);
-    textDrawer.setFont("Arial Black", Font.PLAIN, .8f * spacew);
+    textDrawer.setFont("Arial Black", Font.PLAIN, .7f * spacew);
 
     for (int i = 0; i < colors.length; i++) {
       textDirectioner.resetMove();
@@ -162,7 +162,8 @@ public BoardPanel(int size) {
 
       for (int ni = 1; ni <= MAX_STAIRS; ni++) {
         g.setColor(TEXT_COLOR);
-        textDrawer.draw(g, "" + ni);
+        if (ni == 1) textDrawer.draw(g, "HOME");
+        else textDrawer.draw(g, "" + ni);
         textDirectioner.down(1);
       }
 
@@ -174,6 +175,7 @@ public BoardPanel(int size) {
     }
 
     // pawn
+    pawnDrawer.resetRotation();
     ArrayList<Player> players = Manager.getPlayerList();
     for (int directionIndex = 0; directionIndex < players.size(); directionIndex++) {    
       g.setColor(pawnColors[directionIndex]);
@@ -263,11 +265,12 @@ public BoardPanel(int size) {
             len--;
           }
         }
-
-        pawnDrawer.draw(g);
+        pawnDrawer.drawHorse(g, horseIndex+1);
         horseIndex++;
 
       }
+
+      pawnDrawer.doRotation(g);
     }
   }
 

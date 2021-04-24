@@ -1,6 +1,6 @@
-package src.game;
+package game;
 
-import static src.game.CONSTANTS.TEXT_COLOR;
+import static game.CONSTANTS.TEXT_COLOR;
 
 import java.awt.*;
 

@@ -1,11 +1,11 @@
-package src.panel;
+package panel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import src.game.ActionLog;
-import src.game.Manager;
+import game.ActionLog;
+import game.Manager;
 
 public class MainRightPanel extends JPanel {
   private static JButton diceButton;

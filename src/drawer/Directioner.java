@@ -1,4 +1,4 @@
-package src.drawer;
+package drawer;
 
 public class Directioner {
   public enum Direction {

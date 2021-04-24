@@ -1,42 +1,35 @@
-package src.player;
+package player;
 
-import src.panel.DicePanel;
-import static src.game.CONSTANTS.MAX_LENGTH;
+import panel.DicePanel;
+import static game.CONSTANTS.MAX_LENGTH;
 
 public class Horse {
   private boolean inBarns = true;
+  private boolean isStairs = false;
   private boolean goalReached = false;
-  private boolean isSafe = false;
   private int length = 0;
   private int stairs = 7;
 
   /**
    * Move a horse forward, following the latest dice value
    */
-  public void move() {
-    int l = DicePanel.getLastDice();
+  public void move(boolean hasEatenSomeone) {
+    int diceValue = DicePanel.getLastDice();
 
-    /**
-     * INFO: 
-     * si le cheval se trouve a 3 case de l'escalier et qu'il fait 4, 
-     * il monte sur la 1ère marche ou bien avance de 3 et attend le tour d'après?
-     * 
-     * > état actuel: il avance de 3 et attend le tour d'après,
-     */
-    if (length != MAX_LENGTH) length = (length + l > MAX_LENGTH) ? MAX_LENGTH : length + l;
+    if (length + diceValue <= MAX_LENGTH) length += diceValue;
+    else if (hasEatenSomeone && !isStairs) {
+      int stepsForStairs = (length + diceValue) - MAX_LENGTH;
+      isStairs = true;
+      stairs -= stepsForStairs;
 
-    switch (length) {
-      case 0: case 8: case 13: case 21: case 26: case 34: case 39: case 47:
-        isSafe = true;
-        break;
-      default:
-        isSafe = false;
-        break;
+      // if dice value == 6:
+      if (stairs == 1) goalReached = true;
     }
+
   }
 
   public boolean isInStairs() {
-    return stairs < 7;
+    return isStairs;
   }
 
   /**
@@ -48,12 +41,15 @@ public class Horse {
   public boolean canStairs() {
     int diceValue = DicePanel.getLastDice();
 
-    // ATENTION: if the player hasn't eated any horse, he can't place a horse inside his stairs
     if (length == MAX_LENGTH) {
-      if (stairs - diceValue <= 0) return false;
-      else return true;
+      if (goalReached || stairs - diceValue < 1) return false;
+      else {
+        isStairs = true;
+        return true;
+      }
     }
-    else return false;
+    
+    return false;
   }
 
   /**
@@ -65,7 +61,9 @@ public class Horse {
     int diceValue = DicePanel.getLastDice();
     stairs -= diceValue;
 
-    // !!CARE!! Since stairs = 7, the pawn has finished the race when stairs = 1
+    System.out.println(stairs);
+
+    // Since stairs = 7, the pawn has finished the race when stairs = 1
     if (stairs == 1) goalReached = true;
   }
 
@@ -99,13 +97,6 @@ public class Horse {
    */
   public boolean isGoalReached() {
     return goalReached;
-  }
-
-  /**
-   * Tell if a horse is in a safe zone
-   */
-  public boolean isItSafe() {
-    return isSafe;
   }
 
   /**

@@ -1,4 +1,3 @@
-package src;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -7,9 +6,9 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 
-import src.game.Manager;
-import src.panel.BoardPanel;
-import src.panel.MainRightPanel;
+import game.Manager;
+import panel.BoardPanel;
+import panel.MainRightPanel;
 
 public class Main extends JFrame {
   private static final long serialVersionUID = 1L;
