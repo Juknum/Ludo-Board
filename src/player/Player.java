@@ -24,6 +24,7 @@ public abstract class Player {
   };
   
   public boolean hasEatenSomeone = false;
+  public int order = 0;
 
   public Horse[] getHorses() {
     return horses;
@@ -46,6 +47,39 @@ public abstract class Player {
 
   public String getName() {
     return name;
+  }
+
+  public int horsesInStairs() {
+    int res = 0;
+    for (Horse h : horses) if (h.isInStairs()) res++;
+    return res;
+  }
+
+  public int horsesInHome() {
+    int res = 0;
+    for (Horse h : horses) if (h.isGoalReached()) res++;
+    return res;
+  }
+
+  public int getOrder() {
+    return order;
+  }
+
+  public void setOrder() {
+    for (int i = 0; i < Manager.playerList.size(); i++) {
+      Player p = Manager.playerList.get(i);
+      int th = 0;
+      int o = 0;
+
+      for (int j = 0; j < p.getHorses().length; j++) {
+        Horse h = p.getHorses()[j];
+        if (h.isGoalReached()) th++;
+      }
+
+      if (th == NB_HORSES && i < Manager.currentPlayerIndex) {
+        order++;
+      }
+    }
   }
 
   /**
@@ -107,7 +141,7 @@ public abstract class Player {
       }
     }
 
-    if (nbHorseRemoved > 0) { hasEatenSomeone = true; System.out.println(name + " has eated someone"); }
+    if (nbHorseRemoved > 0) hasEatenSomeone = true;
   }
 
   /**
@@ -162,13 +196,15 @@ public abstract class Player {
   public AvailableActions[] availableActions(int diceValue) {
     ArrayList<AvailableActions> availableActions = new ArrayList<>(horses.length);
 
+    System.out.println( name + ":\th1: " + horses[0].canStairs() + "\th2: " + horses[1].canStairs() + "\th3: " + horses[2].canStairs() + "\th4: " + horses[3].canStairs());
+
     for (int i = 0; i < horses.length; i++) {
       Horse h = horses[i];
 
       if (h.isInBarns() && diceValue == 6) availableActions.add(new AvailableActions(BARNS_OUT, i));
       else {
         if (h.canStairs() && hasEatenSomeone) availableActions.add(new AvailableActions(STAIRS_UP, i));
-        else if (!h.isInBarns() && h.getLength() < MAX_LENGTH) {
+        else if (!h.isInBarns() && !h.isInStairs() && h.getLength() < MAX_LENGTH) {
         
           /* check for others horses in the upcoming cell:
           * if there is 2 horses, the horse can't go to this case and pass (block)

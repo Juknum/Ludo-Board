@@ -7,6 +7,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JFrame;
 
 import game.Manager;
+import static game.CONSTANTS.DEBUG;
 import panel.BoardPanel;
 import panel.MainRightPanel;
 
@@ -16,7 +17,8 @@ public class Main extends JFrame {
 
   Main() {
     this.setSize(1200, BOARD_SIDE);
-    this.setTitle("LudoBoard: Developped by Julien CONSTANT & Noé ECHARD");
+    if (DEBUG) this.setTitle("LudoBoard: Developped by Julien CONSTANT & Noé ECHARD (DEBUG MODE)");
+    else this.setTitle("LudoBoard: Developped by Julien CONSTANT & Noé ECHARD");
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());

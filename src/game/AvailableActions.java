@@ -7,10 +7,10 @@ public class AvailableActions implements Comparable<AvailableActions>, Comparato
   public int compareTo(AvailableActions o) {
 
     if (this.action == o.action)           return  0; // we don't care if it's the same
-    if (this.action == actions.MOVE)       return  1; // LESS IMPORTANT
-    if (this.action == actions.JUMP_HORSE) return -1;
+    if (this.action == actions.STAIRS_UP)  return -1; // MOST IMPORTANT
     if (this.action == actions.BARNS_OUT)  return -2;
-    if (this.action == actions.STAIRS_UP)  return -3; // MOST IMPORTANT
+    if (this.action == actions.JUMP_HORSE) return -3;
+    if (this.action == actions.MOVE)       return -4; // LESS IMPORTANT
 
     else return 1;
   }

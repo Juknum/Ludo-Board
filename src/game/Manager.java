@@ -20,7 +20,7 @@ public class Manager {
 
   private static JButton diceButton;
   private static BoardPanel gamePanel;
-  private static int currentPlayerIndex = 0;
+  public static int currentPlayerIndex = 0;
   public static final ArrayList<Player> playerList = new ArrayList<>(4);
 
   public void setDiceButton(JButton button) {
@@ -156,6 +156,18 @@ public class Manager {
 
     if (Manager.getCurrentPlayer() instanceof AIPlayer && !DEBUG) diceButton.doClick();
     else if (getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
+
+    for (int i = 0; i < playerList.size(); i++) {
+      Player p = playerList.get(i);
+
+      if (!p.hasEatenSomeone) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), "Can't go to stairs", " "), i);
+      else if (p.horsesInHome() == 4) {
+        p.setOrder();
+        MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), "have finished", "" + p.getOrder()), i);
+      }
+      else MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.horsesInHome() + " horse(s) in home", " "), i);
+    }
+    
   }
 
   /**

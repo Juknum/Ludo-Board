@@ -19,6 +19,7 @@ public class Horse {
     if (length + diceValue <= MAX_LENGTH) length += diceValue;
     else if (hasEatenSomeone && !isStairs) {
       int stepsForStairs = (length + diceValue) - MAX_LENGTH;
+      length = MAX_LENGTH;
       isStairs = true;
       stairs -= stepsForStairs;
 
@@ -42,7 +43,7 @@ public class Horse {
     int diceValue = DicePanel.getLastDice();
 
     if (length == MAX_LENGTH) {
-      if (goalReached || stairs - diceValue < 1) return false;
+      if (stairs - diceValue < 1) return false;
       else {
         isStairs = true;
         return true;

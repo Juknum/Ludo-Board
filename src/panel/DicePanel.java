@@ -2,7 +2,7 @@ package panel;
 
 import drawer.DiceDrawer;
 import game.Manager;
-import game.CONSTANTS;
+import static game.CONSTANTS.*;
 import game.RollListener;
 
 import javax.swing.*;
@@ -86,7 +86,7 @@ public class DicePanel extends JLabel {
     this.addMouseListener(new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        if (CONSTANTS.DEBUG) {
+        if (DEBUG) {
           Manager.AUTO_CLICK = !Manager.AUTO_CLICK;
           System.out.println("AUTO CLICK: " + Manager.AUTO_CLICK);
         }
@@ -109,7 +109,7 @@ public class DicePanel extends JLabel {
 
   public void setPlayer(int playerIndex, String playerName) {
     this.setText(
-      "<html>It's the turn of <b style='color: #"+ Integer.toHexString(CONSTANTS.darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
+      "<html>It's the turn of <b style='color: #"+ Integer.toHexString(darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
       + playerName + 
       "</b></html>");
   }
