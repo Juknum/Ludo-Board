@@ -65,6 +65,7 @@ public class Horse {
     int diceValue = DicePanel.getLastDice();
     stairs -= diceValue;
 
+    // !!CARE!! Since stairs = 7, the pawn has finished the race when stairs = 1
     if (stairs == 1) goalReached = true;
   }
 

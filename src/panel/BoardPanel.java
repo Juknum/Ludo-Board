@@ -1,6 +1,7 @@
 package src.panel;
 
 import src.game.Manager;
+
 import src.player.Horse;
 import src.player.Player;
 
@@ -18,20 +19,23 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 public class BoardPanel extends JPanel {
-  private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-  private final DiscDrawer discDrawer = new DiscDrawer();
-  private final StarDrawer starDrawer = new StarDrawer();
-  private final RectDrawer rectDrawer = new RectDrawer();
-  private final PawnDrawer pawnDrawer = new PawnDrawer();
-  private final Directioner textDirectioner = new Directioner(COUNT / 2.f, COUNT / 2.f);
+private final DiscDrawer discDrawer = new DiscDrawer();
+private final StarDrawer starDrawer = new StarDrawer();
+private final RectDrawer rectDrawer = new RectDrawer();
+private final PawnDrawer pawnDrawer = new PawnDrawer();
+private final Directioner textDirectioner = new Directioner(COUNT / 2.f, COUNT / 2.f);
 
-  public BoardPanel(int size) {
-    this.resize(size);
-    Manager.setGamePanel(this);
-    rectDrawer.setSide(BARNS);
-  }
+public BoardPanel(int size) {
+	this.resize(size);
+	Manager.setGamePanel(this);
+	rectDrawer.setSide(BARNS);
+}
 
   @Override
   protected void paintComponent(Graphics g) {
@@ -272,5 +276,32 @@ public class BoardPanel extends JPanel {
     Dimension s = new Dimension(size, size);
     this.setPreferredSize(s);
     this.setMinimumSize(s);
+  }
+
+  public void keyPressed(KeyEvent k){
+	do{
+		switch(k.getKeyChar()){
+
+		case '&' :  //Horse 1
+			
+			break; 
+			
+		case 'é' :  //Horse 2
+			
+			break; 
+
+		case '"' :  //Horse 3
+			
+			break; 
+
+		case '\'' :  //Horse 4
+			
+			break;
+
+		default :
+			System.out.println("ERROR");
+			break;
+		}
+	}while(k != '&');
   }
 }
