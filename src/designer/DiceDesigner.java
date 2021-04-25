@@ -15,7 +15,7 @@ public class DiceDesigner {
   private static final Color DICE_VAL = Color.black;
 
   /**
-   * 
+   * Draw the square of the dice
    * @param g
    * @param x
    * @param y
@@ -57,6 +57,14 @@ public class DiceDesigner {
     }
   }
 
+  /**
+   * Draw the points of the dice
+   * @param g
+   * @param x
+   * @param y
+   * @param percentX
+   * @param percentY
+   */
   private static void drawPoint(Graphics g, int x, int y, float percentX, float percentY) {
     
     // border offset

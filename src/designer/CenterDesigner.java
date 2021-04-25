@@ -20,47 +20,92 @@ public abstract class CenterDesigner {
     this.directioner = directioner;
   }
 
+  /**
+   * Set the scale
+   * @param scale
+   */
   public void setScale(float scale) {
     this.scale = scale;
   }
 
+  /**
+   * Set the width
+   * @param width
+   */
   public void setWidth(float width) {
     this.width = width;
   }
 
+  /**
+   * Set the height
+   * @param height
+   */
   public void setHeight(float height) {
     this.height = height;
   }
 
+  /**
+   * Set the size thanks to the two previous methods
+   * @param width
+   * @param height
+   */
   public void setSize(float width, float height) {
     this.setWidth(width);
     this.setHeight(height);
   }
 
+  /**
+   * Set the size and define it as a square
+   * @param side
+   */
   public void setSide(float side) {
     this.setSize(side, side);
   }
 
+  /**
+   * Return the coordinates on X axis 
+   * @return float
+   */
   public int getX() {
     return Math.round(directioner.getX());
   }
 
+  /**
+   * Return the coordinates on Y axis
+   * @return float
+   */
   public int getY() {
     return Math.round(directioner.getY());
   }
 
+  /**
+   * Return the width
+   * @return float
+   */
   public float getWidthFloat() {
     return scale * width;
   }
 
+  /**
+   * Return rounded value of the width
+   * @return int
+   */
   public int getWidth() {
     return Math.round(getWidthFloat());
   }
 
+  /**
+   * Return the height
+   * @return float
+   */
   public float getHeightFloat() {
     return scale * height;
   }
 
+  /**
+   * Return rounded value of the height
+   * @return int 
+   */
   public int getHeight() {
     return Math.round(getHeightFloat());
   }
