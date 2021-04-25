@@ -14,6 +14,13 @@ public class DiceDesigner {
   private static final Color DICE_BORDER = Color.black;
   private static final Color DICE_VAL = Color.black;
 
+  /**
+   * 
+   * @param g
+   * @param x
+   * @param y
+   * @param v
+   */
   public static void draw(Graphics g, int x, int y, int v) {
     if (v < 1 || v > 6)
       return;
