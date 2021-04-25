@@ -18,7 +18,7 @@ public class MainRightPanel extends JPanel {
   private static JScrollPane scrollPane;
   private static JScrollPane scrollPaneStats;
   private static final ArrayList<ActionLog> actionLogs = new ArrayList<>();
-  private static final ArrayList<StatsLogs> statsLogs = new ArrayList<>(4);
+  private static final ArrayList<StatsLogs> statsLogs = new ArrayList<>(NB_BOT_PLAYERS+NB_REAL_PLAYERS);
 
   /**
    * Set up of the right panel (dice button, dice, stats panel, logs panel)

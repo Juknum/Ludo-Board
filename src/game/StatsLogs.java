@@ -8,6 +8,12 @@ public class StatsLogs {
   private String prefix = "system";
   private final String content;
 
+  /**
+   * Create a new stat log
+   * @param c Color
+   * @param prefix String of the player name
+   * @param content String
+   */
   public StatsLogs(Color c, String prefix, String content) {
     this.c = c;
     this.prefix = prefix;

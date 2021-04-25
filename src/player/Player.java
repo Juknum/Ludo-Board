@@ -9,20 +9,23 @@ import game.Manager;
 import panel.DicePanel;
 import panel.MainRightPanel;
 
-import static game.CONSTANTS.NB_HORSES;
-import static game.CONSTANTS.MAX_LENGTH;
-import static game.CONSTANTS.SHIFT;
+import static game.CONSTANTS.*;
 import static game.AvailableActions.actions.*;
 
 public abstract class Player {
   private final String name;
   private final Color  color;
-  private final Horse[] horses = {
-    new Horse(), new Horse(),
-    new Horse(), new Horse()
-  };
+  private final Horse[] horses = new Horse[NB_HORSES];
+
+  private void setHorses() {
+
+    for (int i = 0; i < horses.length; i++) {
+      horses[i] = new Horse();
+    }
+  }
   
-  public boolean hasEatenSomeone = false;
+  @SuppressWarnings("unused")
+  public boolean hasEatenSomeone = (DEBUG && NB_HORSES == 1) ? true : false; // enable stairs if debug mode
   public int order = 0;
 
   /**
@@ -39,6 +42,7 @@ public abstract class Player {
   public Player(String name, Color color) {
     this.name  = name;
     this.color = color;
+    setHorses(); // create horses in the same time
   }
 
   /**
@@ -109,8 +113,6 @@ public abstract class Player {
         return "<span style='color: #A9A9A9'>🥈</span>";
       case 3:
         return "<span style='color: #B87333'>🥉</span>";
-      case 4:
-        return "<span style='color: #000000'>🕱</span>";
       default:
         return "<span style='color: #FF0000'>Err</span>"; // just in case
     }

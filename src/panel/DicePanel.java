@@ -3,6 +3,7 @@ package panel;
 import game.Manager;
 import static game.CONSTANTS.*;
 import game.RollListener;
+import player.AIPlayer;
 
 import javax.swing.*;
 
@@ -134,9 +135,13 @@ public class DicePanel extends JLabel {
    * @param playerName String
    */
   public void setPlayer(int playerIndex, String playerName) {
-    this.setText(
+    if (Manager.getCurrentPlayer() instanceof AIPlayer) this.setText(
       "<html>It's the turn of <b style='color: #"+ Integer.toHexString(darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
       + playerName + 
       "</b></html>");
+    else this.setText(
+      "<html>It's the turn of <b style='color: #"+ Integer.toHexString(darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
+      + playerName + 
+      "</b><br>Use hotbar keys to play the corresponding pawn.</html>");
   }
 }

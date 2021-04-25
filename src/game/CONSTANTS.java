@@ -9,7 +9,7 @@ public final class CONSTANTS {
   public static final int MAX_STAIRS = 6;
   public static final int SHIFT = 13;
 
-  public static final boolean DEBUG = true;
+  public static final boolean DEBUG = false;
 
   public static final int MIN_PLAYER = DEBUG ? 0 : 1;
   public static final int MAX_PLAYER = 4;
@@ -21,7 +21,6 @@ public final class CONSTANTS {
   
   public static int NB_HORSES = 4;
 
-  @SuppressWarnings("PointlessArithmeticExpression")
   public static final int MAX_LENGTH = 50;
 
   public static final Color[] colors = {

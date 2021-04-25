@@ -15,13 +15,13 @@ import player.RealPlayer;
 import static game.CONSTANTS.*;
 
 public class Manager {
-  @SuppressWarnings("PointlessBooleanExpression")
+  @SuppressWarnings("unused")
   public static boolean AUTO_CLICK = DEBUG && false;
 
   private static JButton diceButton;
   private static BoardPanel gamePanel;
   public static int currentPlayerIndex = 0;
-  public static final ArrayList<Player> playerList = new ArrayList<>(4);
+  public static final ArrayList<Player> playerList = new ArrayList<>(NB_REAL_PLAYERS+NB_BOT_PLAYERS);
   public static int playerEnd = 0;
 
   public void setDiceButton(JButton button) {
@@ -105,9 +105,9 @@ public class Manager {
   public static void actionEnded(Player p) {
     gamePanel.repaint();
 
-    if (p.getOrder() != 0) {
-      nextPlayer(); 
-      return;
+    if (p.horsesInHome() == NB_HORSES && p.getOrder() == 0) {
+      p.setOrder(playerEnd + 1);
+      playerEnd++;
     }
     
     if (p == getCurrentPlayer()) {
@@ -117,20 +117,37 @@ public class Manager {
         if (Manager.getCurrentPlayer() instanceof AIPlayer && !DEBUG) diceButton.doClick();
         else if (Manager.getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
       }
-      else nextPlayer();
+      else nextPlayer(1);
     }
+  }
 
-    if (p.horsesInHome() == 4 && p.getOrder() == 0) {
-      p.setOrder(playerEnd + 1);
-      playerEnd++;
+  private static void updateStats() {
+    // setup stats logs
+    for (int i = 0; i < playerList.size(); i++) {
+      Player p = playerList.get(i);
+
+      if (!p.hasEatenSomeone) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), "Can't go to stairs"), i);
+      else if (p.horsesInHome() == NB_HORSES) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.getOrderToString()), i);
+      else MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.horsesInHome() + " horse(s) in home"), i);
     }
   }
 
   /**
    * Switch the currentPLayerIndex to the next player
    */
-  public static void nextPlayer() {
-    currentPlayerIndex = (currentPlayerIndex + 1) % playerList.size();
+  public static void nextPlayer(int num) {
+    if (num > NB_BOT_PLAYERS+NB_REAL_PLAYERS) return; // avoid infinite loop when recursive
+
+    updateStats();
+
+    // end of a match:
+    if (playerEnd == playerList.size() - 1) return;
+
+    // if the next player already achieved the goal, set the next+i player (recursively)
+    if (playerList.get((currentPlayerIndex + num) % playerList.size()).horsesInHome() == NB_HORSES) {
+      nextPlayer(num + 1);
+    } else currentPlayerIndex = (currentPlayerIndex + num) % playerList.size();
+
     newRound(currentPlayerIndex);
   }
 
@@ -163,34 +180,21 @@ public class Manager {
    * @param playerIndex int
    */
   public static void newRound(int playerIndex) {
-    // end of a match:
-    if (playerEnd == playerList.size()) return;
+    updateStats();
 
-    // if the player haven't finished (he doesn't have 4 horses in home)
-    if (playerList.get(playerIndex).horsesInHome() != 4) {
-      DicePanel.getInstance().setPlayer(playerIndex, playerList.get(playerIndex).getName());
-      diceButton.setEnabled(true);
+    // if the player haven't finished (he doesn't have all horses in home)
+    DicePanel.getInstance().setPlayer(playerIndex, playerList.get(playerIndex).getName());
+    diceButton.setEnabled(true);
 
-      if (Manager.getCurrentPlayer() instanceof AIPlayer && !DEBUG) diceButton.doClick();
-      else if (getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
-
-      for (int i = 0; i < playerList.size(); i++) {
-        Player p = playerList.get(i);
-
-        if (!p.hasEatenSomeone) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), "Can't go to stairs"), i);
-        else if (p.horsesInHome() == 4) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.getOrderToString()), i);
-        else MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.horsesInHome() + " horse(s) in home"), i);
-      }
-    }
-    else newRound((playerIndex + 1) % playerList.size());
-    
+    if (Manager.getCurrentPlayer() instanceof AIPlayer && !DEBUG) diceButton.doClick();
+    else if (getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
   }
 
   /**
    * Get the current playing player
    * @return Player
    */
-  private static Player getCurrentPlayer() {
+  public static Player getCurrentPlayer() {
     return playerList.get(currentPlayerIndex);
   }
 
