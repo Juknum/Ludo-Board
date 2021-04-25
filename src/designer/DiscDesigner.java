@@ -3,14 +3,25 @@ package designer;
 import java.awt.*;
 
 public class DiscDesigner extends CenterDesigner {
+
+  /**
+   * Set the diameter of a circle to the lenght 'd'
+   * @param d
+   */
   public void setDiameter(float d) {
     setSide(d);
   }
 
+  /**
+   * Return the diameter of a circle
+   */
   public float getDiameter() {
     return this.getWidthFloat();
   }
 
+  /**
+   * Draw a circle
+   */
   @Override
   public void draw(Graphics g) {
     int width = getWidth();
@@ -22,6 +33,9 @@ public class DiscDesigner extends CenterDesigner {
     g.drawOval(x - width / 2, y - height / 2, width, height);
   }
 
+  /**
+   * Fill the drawn circle
+   */
   @Override
   public void fill(Graphics g) {
     int width = getWidth();
@@ -32,4 +46,5 @@ public class DiscDesigner extends CenterDesigner {
 
     g.fillOval(x - width / 2, y - height / 2, width, height);
   }
+  
 }

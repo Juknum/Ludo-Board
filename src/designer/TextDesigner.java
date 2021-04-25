@@ -15,6 +15,12 @@ public class TextDesigner extends CenterDesigner {
   private float fontSize = 20;
   private Font font = new Font(fontFamily, fontStyle, 11);
 
+  /**
+   * Set the text we want to display (in any direction)
+   * @param directioner
+   * @param text
+   * @param g
+   */
   public TextDesigner(Directioner directioner, String text, Graphics g) {
     this.text = text;
     this.g = g;
@@ -29,6 +35,9 @@ public class TextDesigner extends CenterDesigner {
     updateFont();
   }
 
+  /**
+   * Update the font of the text
+   */
   protected final void updateFont() {
     int size = 11;
     Font tmpFont = new Font(fontFamily, fontStyle, size);
@@ -43,41 +52,79 @@ public class TextDesigner extends CenterDesigner {
     this.font = new Font(fontFamily, fontStyle, size);
   }
 
+  /**
+   * Return the family of the font used
+   * @return Font
+   */
   public String getFontFamily() {
     return fontFamily;
   }
 
+  /**
+   * Set the font on the text we want to display
+   * @param fontFamily
+   */
   public void setFontFamily(String fontFamily) {
     this.fontFamily = fontFamily;
     this.updateFont();
   }
 
+  /**
+   * Return the style of font used
+   * @return Font
+   */
   public int getFontStyle() {
     return fontStyle;
   }
 
+  /**
+   * Set the style of font (plain, bold, etc)
+   * @param fontStyle
+   */
   public void setFontStyle(int fontStyle) {
     this.fontStyle = fontStyle;
     this.updateFont();
   }
 
+  /**
+   * Return the size of the displayed text
+   * @return int
+   */
   public float getFontSize() {
     return fontSize;
   }
 
+  /**
+   * Set the size of the displayed text
+   * @param fontSize
+   */
   public void setFontSize(float fontSize) {
     this.fontSize = fontSize;
     this.updateFont();
   }
 
+  /**
+   * Return the text displayed
+   * @return String
+   */
   public String getText() {
     return text;
   }
 
+  /**
+   * Set the text we want to display (similar to TextDesigner)
+   * @param text
+   */
   public void setText(String text) {
     this.text = text;
   }
 
+  /**
+   * Set both font, font style and the size in pixel of the text we want to display
+   * @param fontFamily
+   * @param fontStyle
+   * @param pixelSize
+   */
   public void setFont(String fontFamily, int fontStyle, float pixelSize) {
     this.fontFamily = fontFamily;
     this.fontStyle = fontStyle;
@@ -86,6 +133,10 @@ public class TextDesigner extends CenterDesigner {
     updateFont();
   }
 
+  /**
+   * Design the area where the text will be displayed
+   * @param g
+   */
   @Override
   public void draw(Graphics g) {
     float topx = getX();
@@ -106,11 +157,20 @@ public class TextDesigner extends CenterDesigner {
     g.setFont(oldFont);
   }
 
+  /**
+   * Draw the area designed and display the text
+   * @param g
+   * @param text
+   */
   public void draw(Graphics g, String text) {
     this.setText(text);
     this.draw(g);
   }
 
+  /**
+   * Fill the area where the text is displayed
+   * @param g
+   */
   @Override
   public void fill(Graphics g) {
     this.draw(g);

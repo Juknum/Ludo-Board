@@ -6,6 +6,13 @@ public class StarDesigner extends CenterDesigner {
 
   private int radius[] = {16, 8, 16, 8};
 
+  /**
+   * Set the different lenght of the star
+   * @param a
+   * @param b
+   * @param c
+   * @param d
+   */
   public void setSize(int a, int b, int c, int d) {
     this.radius[0] = a;
     this.radius[1] = b;
@@ -13,6 +20,10 @@ public class StarDesigner extends CenterDesigner {
     this.radius[3] = d;
   }
   
+  /**
+   * Draw the star 
+   * @param g
+   */
   @Override
   public void draw(Graphics g) {
     int midX = getX();
@@ -34,6 +45,10 @@ public class StarDesigner extends CenterDesigner {
 
   }
 
+  /**
+   * Fill the drawn star 
+   * @param g
+   */
   @Override
   public void fill(Graphics g) {
     int midX = getX();

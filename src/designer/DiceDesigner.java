@@ -25,6 +25,7 @@ public class DiceDesigner {
     g.drawRect(x, y, SIZE, SIZE);
 
     g.setColor(DICE_VAL);
+
     // odd number got black dot in the center
     if (v % 2 == 1) {
       drawPoint(g, x, y, .5f, .5f);
@@ -50,6 +51,7 @@ public class DiceDesigner {
   }
 
   private static void drawPoint(Graphics g, int x, int y, float percentX, float percentY) {
+    
     // border offset
     int offsetX = x + BOR;
     int offsetY = y + BOR;
