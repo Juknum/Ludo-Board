@@ -96,6 +96,27 @@ public abstract class Player {
   }
 
   /**
+   * Get the stringified version of the order
+   * @return String
+   */
+  public String getOrderToString() {
+    switch (getOrder()) {
+      case 0:
+        return "⠀⠀⠀"; // 3 "⠀" (blank space)
+      case 1:
+        return "⠀👑⠀";
+      case 2:
+        return "2nd";
+      case 3:
+        return "3rd";
+      case 4:
+        return "4th";
+      default:
+        return "Err";
+    }
+  }
+
+  /**
    * Set the order of a player (1st/2nd/3rd/4th)
    */
   public void setOrder(int order) {
