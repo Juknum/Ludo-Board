@@ -12,7 +12,6 @@ import panel.MainRightPanel;
 import static game.CONSTANTS.NB_HORSES;
 import static game.CONSTANTS.MAX_LENGTH;
 import static game.CONSTANTS.SHIFT;
-import static game.CONSTANTS.DEBUG;
 import static game.AvailableActions.actions.*;
 
 public abstract class Player {
@@ -26,60 +25,81 @@ public abstract class Player {
   public boolean hasEatenSomeone = false;
   public int order = 0;
 
+  /**
+   * Get the horses of a player
+   * @return Horse[]
+   */
   public Horse[] getHorses() {
     return horses;
   }
 
+  /**
+   * Set player attributes
+   */
   public Player(String name, Color color) {
     this.name  = name;
     this.color = color;
   }
 
+  /**
+   * Get the number of horses in barns
+   * @return int
+   */
   public int horsesIn() {
     int res = 0;
     for (Horse h : horses) if (h.isInBarns()) res++;
     return res;
   }
 
+  /**
+   * Get the number of horse out of the barns
+   * @return int
+   */
   public int horsesOut() {
     return NB_HORSES - horsesIn();
   }
 
+  /**
+   * Get the player name
+   * @return String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Get the number of horse in stairs
+   * @return int
+   */
   public int horsesInStairs() {
     int res = 0;
     for (Horse h : horses) if (h.isInStairs()) res++;
     return res;
   }
 
+  /**
+   * Get the number of horse in home
+   * @return int
+   */
   public int horsesInHome() {
     int res = 0;
     for (Horse h : horses) if (h.isGoalReached()) res++;
     return res;
   }
 
+  /**
+   * Get the order of a player (1st/2nd/3rd/4th)
+   * @return int
+   */
   public int getOrder() {
     return order;
   }
 
-  public void setOrder() {
-    for (int i = 0; i < Manager.playerList.size(); i++) {
-      Player p = Manager.playerList.get(i);
-      int th = 0;
-      int o = 0;
-
-      for (int j = 0; j < p.getHorses().length; j++) {
-        Horse h = p.getHorses()[j];
-        if (h.isGoalReached()) th++;
-      }
-
-      if (th == NB_HORSES && i < Manager.currentPlayerIndex) {
-        order++;
-      }
-    }
+  /**
+   * Set the order of a player (1st/2nd/3rd/4th)
+   */
+  public void setOrder(int order) {
+    this.order = order;
   }
 
   /**
@@ -193,10 +213,11 @@ public abstract class Player {
     return globalLength;
   }
 
+  /**
+   * Set all possible actions for a player
+   */
   public AvailableActions[] availableActions(int diceValue) {
     ArrayList<AvailableActions> availableActions = new ArrayList<>(horses.length);
-
-    System.out.println( name + ":\th1: " + horses[0].canStairs() + "\th2: " + horses[1].canStairs() + "\th3: " + horses[2].canStairs() + "\th4: " + horses[3].canStairs());
 
     for (int i = 0; i < horses.length; i++) {
       Horse h = horses[i];
@@ -205,13 +226,11 @@ public abstract class Player {
       else {
         if (h.canStairs() && hasEatenSomeone) availableActions.add(new AvailableActions(STAIRS_UP, i));
         else if (!h.isInBarns() && !h.isInStairs() && h.getLength() < MAX_LENGTH) {
-        
-          /* check for others horses in the upcoming cell:
-          * if there is 2 horses, the horse can't go to this case and pass (block)
-          */
-          int nextLength = getGlobalLength(h.getLength() + diceValue);
 
-          if (getUpcomingHorses(nextLength) < 2) {
+          // Looks for horses in the next cell:
+          int nextLength = getGlobalLength(h.getLength() + diceValue);
+          if (getUpcomingHorses(nextLength) < 2) { // if there is more than 1 horse, this horse can't go to the cell
+            // if there is 1 horse, check if the player could remove that horse
             if (canRemoveHorse(nextLength)) availableActions.add(new AvailableActions(JUMP_HORSE, i));
             else availableActions.add(new AvailableActions(MOVE, i));
           }
@@ -219,10 +238,15 @@ public abstract class Player {
       }
     }
 
+    // we sort actions to let the most important one at first position
     availableActions.sort(new AvailableActions(MOVE, 0));
     return availableActions.toArray(new AvailableActions[0]);
   }
 
+  /**
+   * Execute the given action
+   * @param action AvailableActions
+   */
   public void act(AvailableActions action) {
     Horse h = horses[action.pawnIndex];
     String content = "Horse " + (action.pawnIndex + 1) + ": ";
@@ -250,12 +274,14 @@ public abstract class Player {
         break;
     }
     
-    if (DEBUG) content += " (#" + getGlobalLength(h.getLength() + diceValue) + ")";
-
     MainRightPanel.addLog(new ActionLog(color, name, content));
     Manager.actionEnded(this);
   }
 
+  /**
+   * Get the color of a player
+   * @return Color
+   */
   public Color getColor() {
     return color;
   }

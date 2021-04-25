@@ -20,6 +20,9 @@ public class MainRightPanel extends JPanel {
   private static final ArrayList<ActionLog> actionLogs = new ArrayList<>();
   private static final ArrayList<StatsLogs> statsLogs = new ArrayList<>(4);
 
+  /**
+   * Set up of the right panel (dice button, dice, stats panel, logs panel)
+   */
   public MainRightPanel() {
     this.setLayout(new GridLayout(4, 1));
     this.setMinimumSize(new Dimension(200, 0));
@@ -76,13 +79,23 @@ public class MainRightPanel extends JPanel {
     vertical.setValue(vertical.getMaximum());
   }
 
+  /**
+   * Add stats to the stats logs
+   */
   public static void addStats(StatsLogs log) {
     for (int i = 0; i < MAX_PLAYER; i++) {
       statsLogs.add(log);
     }
   }
 
+  /**
+   * Set a statistics of the statistics panel (0-3)
+   * @param log StatsLogs
+   * @param index int
+   */
   public static void setStats(StatsLogs log, int index) {
+    if (index > 3) return;
+
     statsLogs.set(index, log);
 
     StringBuilder builder = new StringBuilder("<html><h3>Statistics:</h3>");

@@ -15,6 +15,9 @@ public class Main extends JFrame {
   private static final long serialVersionUID = 1L;
   private static final int  BOARD_SIDE = 800;
 
+  /**
+   * Setup of the JFrame
+   */
   Main() {
     this.setSize(1200, BOARD_SIDE);
     if (DEBUG) this.setTitle("LudoBoard: Developped by Julien CONSTANT & Noé ECHARD (DEBUG MODE)");
