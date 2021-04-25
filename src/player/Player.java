@@ -102,17 +102,17 @@ public abstract class Player {
   public String getOrderToString() {
     switch (getOrder()) {
       case 0:
-        return "⠀⠀⠀"; // 3 "⠀" (blank space)
+        return "";
       case 1:
-        return "⠀👑⠀";
+        return "<span style='color: #DDDD00'>🥇</span>";
       case 2:
-        return "2nd";
+        return "<span style='color: #A9A9A9'>🥈</span>";
       case 3:
-        return "3rd";
+        return "<span style='color: #B87333'>🥉</span>";
       case 4:
-        return "4th";
+        return "<span style='color: #000000'>🕱</span>";
       default:
-        return "Err";
+        return "<span style='color: #FF0000'>Err</span>"; // just in case
     }
   }
 

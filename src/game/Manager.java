@@ -22,6 +22,7 @@ public class Manager {
   private static BoardPanel gamePanel;
   public static int currentPlayerIndex = 0;
   public static final ArrayList<Player> playerList = new ArrayList<>(4);
+  public static int playerEnd = 0;
 
   public void setDiceButton(JButton button) {
     diceButton = button;
@@ -85,7 +86,8 @@ public class Manager {
       Player currentPlayer = getCurrentPlayer();
       AvailableActions[] availableActions = currentPlayer.availableActions(v);
 
-      if (availableActions.length > 0) {
+      if (currentPlayer.getOrder() != 0) actionEnded(currentPlayer);
+      else if (availableActions.length > 0) {
         if (availableActions.length == 1 || currentPlayer instanceof AIPlayer) currentPlayer.act(availableActions[0]);
       }
       else {
@@ -103,6 +105,11 @@ public class Manager {
   public static void actionEnded(Player p) {
     gamePanel.repaint();
 
+    if (p.getOrder() != 0) {
+      nextPlayer(); 
+      return;
+    }
+    
     if (p == getCurrentPlayer()) {
       if (DicePanel.getLastDice() == 6) {
         diceButton.setEnabled(true);
@@ -111,6 +118,11 @@ public class Manager {
         else if (Manager.getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
       }
       else nextPlayer();
+    }
+
+    if (p.horsesInHome() == 4 && p.getOrder() == 0) {
+      p.setOrder(playerEnd + 1);
+      playerEnd++;
     }
   }
 
@@ -151,19 +163,26 @@ public class Manager {
    * @param playerIndex int
    */
   public static void newRound(int playerIndex) {
-    DicePanel.getInstance().setPlayer(playerIndex, playerList.get(playerIndex).getName());
-    diceButton.setEnabled(true);
+    // end of a match:
+    if (playerEnd == playerList.size()) return;
 
-    if (Manager.getCurrentPlayer() instanceof AIPlayer && !DEBUG) diceButton.doClick();
-    else if (getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
+    // if the player haven't finished (he doesn't have 4 horses in home)
+    if (playerList.get(playerIndex).horsesInHome() != 4) {
+      DicePanel.getInstance().setPlayer(playerIndex, playerList.get(playerIndex).getName());
+      diceButton.setEnabled(true);
 
-    for (int i = 0; i < playerList.size(); i++) {
-      Player p = playerList.get(i);
+      if (Manager.getCurrentPlayer() instanceof AIPlayer && !DEBUG) diceButton.doClick();
+      else if (getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
 
-      if (!p.hasEatenSomeone) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), "Can't go to stairs", p.getOrderToString()), i);
-      else if (p.horsesInHome() == 4) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), "have finished", p.getOrderToString()), i);
-      else MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.horsesInHome() + " horse(s) in home", p.getOrderToString()), i);
+      for (int i = 0; i < playerList.size(); i++) {
+        Player p = playerList.get(i);
+
+        if (!p.hasEatenSomeone) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), "Can't go to stairs"), i);
+        else if (p.horsesInHome() == 4) MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.getOrderToString()), i);
+        else MainRightPanel.setStats(new StatsLogs(p.getColor(), p.getName(), p.horsesInHome() + " horse(s) in home"), i);
+      }
     }
+    else newRound((playerIndex + 1) % playerList.size());
     
   }
 

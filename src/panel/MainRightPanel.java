@@ -52,7 +52,7 @@ public class MainRightPanel extends JPanel {
     this.add(scrollPane);
 
     MainRightPanel.addLog(new ActionLog(Color.black, "", "<h3>Game Information:</h3>"));
-    MainRightPanel.addStats(new StatsLogs(Color.black, "", "", ""));
+    MainRightPanel.addStats(new StatsLogs(Color.black, "", ""));
 
     diceButton.addActionListener(e -> {
       diceButton.setEnabled(false);
