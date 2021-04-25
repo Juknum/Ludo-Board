@@ -25,20 +25,30 @@ public class DicePanel extends JLabel {
   private final Random diceRandom;
 
   private int lastDiceValue = 0;
-
+  private static DicePanel instance;
   private final ArrayList<RollListener> rollEnd = new ArrayList<>();
 
+  /**
+   * Listen to the end of the dice roll
+   * @param rollEnd RollListener
+   */
   public void addRollEndListener(RollListener rollEnd) {
     this.rollEnd.add(rollEnd);
   }
 
-  private static DicePanel instance;
-  
+  /**
+   * Get the instance of the Dice Panel
+   * @return DicePanel
+   */
   public static DicePanel getInstance() {
     if (instance == null) instance = new DicePanel();
     return instance;
   }
 
+  /**
+   * Get the last dice value
+   * @return int
+   */
   public static int getLastDice() {
     return getInstance().lastDiceValue;
   }
@@ -49,16 +59,25 @@ public class DicePanel extends JLabel {
     DiceDesigner.draw(g, 30, 50, lastDiceValue);
   }
 
+  /**
+   * Starts the roll of the dice
+   */
   public void startRoll() {
     timer.start();
     diceTurn = 1;
   }
 
+  /**
+   * Hide the dice of the panel
+   */
   public void hideDice() {
     lastDiceValue = 0;
     this.repaint();
   }
 
+  /**
+   * Setup the dice panel
+   */
   private DicePanel() {
     this.setText(null);
     this.setVerticalAlignment(SwingConstants.TOP);
@@ -109,6 +128,11 @@ public class DicePanel extends JLabel {
     });
   }
 
+  /**
+   * Set the text below the dice button
+   * @param playerIndex int
+   * @param playerName String
+   */
   public void setPlayer(int playerIndex, String playerName) {
     this.setText(
       "<html>It's the turn of <b style='color: #"+ Integer.toHexString(darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
