@@ -7,12 +7,16 @@ public abstract class CenterDesigner {
   private float width = 1f;
   private float height = 1f;
 
-  private Directioner directioner;
+  private DirectionSetupper directioner;
 
   public CenterDesigner() {
   }
 
-  public void setDirectioner(Directioner directioner) {
+  /**
+   * Set the direction (SOUTH, EAST, WEST, NORTH) of a directioner object
+   * @param directioner
+   */
+  public void setDirectionsetupper(DirectionSetupper directioner) {
     this.directioner = directioner;
   }
 

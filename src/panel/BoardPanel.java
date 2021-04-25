@@ -9,7 +9,7 @@ import static game.CONSTANTS.*;
 
 import javax.swing.*;
 
-import designer.Directioner;
+import designer.DirectionSetupper;
 import designer.DiscDesigner;
 import designer.PawnDesigner;
 import designer.RectDesigner;
@@ -29,7 +29,7 @@ private final DiscDesigner discDrawer = new DiscDesigner();
 private final StarDesigner starDrawer = new StarDesigner();
 private final RectDesigner rectDrawer = new RectDesigner();
 private final PawnDesigner pawnDrawer = new PawnDesigner();
-private final Directioner textDirectioner = new Directioner(COUNT / 2.f, COUNT / 2.f);
+private final DirectionSetupper textDirectioner = new DirectionSetupper(COUNT / 2.f, COUNT / 2.f);
 
 public BoardPanel(int size) {
 	this.resize(size);
@@ -52,28 +52,28 @@ public BoardPanel(int size) {
     // directioner
     float centerx = COUNT / 2.f;
     float centery = COUNT / 2.f;
-    Directioner.Direction dir;
-    Directioner moving = new Directioner(centerx, centery);
+    DirectionSetupper.Direction dir;
+    DirectionSetupper moving = new DirectionSetupper(centerx, centery);
     moving.setScale(spacew);
 
     // drawers
-    discDrawer.setDirectioner(moving);
+    discDrawer.setDirectionsetupper(moving);
     discDrawer.setScale(spacew);
 
-    rectDrawer.setDirectioner(moving);
+    rectDrawer.setDirectionsetupper(moving);
     rectDrawer.setScale(spacew);
 
-    pawnDrawer.setDirectioner(moving);
+    pawnDrawer.setDirectionsetupper(moving);
     pawnDrawer.setScale(spacew * .7f);
 
-    starDrawer.setDirectioner(moving);
+    starDrawer.setDirectionsetupper(moving);
     starDrawer.setScale(spacew);
 
     // text
     textDirectioner.setScale(spacew);
 
     for (int colorIndex = 0; colorIndex < colors.length; colorIndex++) {
-      dir = Directioner.Direction.values()[(Directioner.Direction.values().length + colorIndex - 1) % Directioner.Direction.values().length];
+      dir = DirectionSetupper.Direction.values()[(DirectionSetupper.Direction.values().length + colorIndex - 1) % DirectionSetupper.Direction.values().length];
       moving.setDir(dir);
 
       Color color = colors[colorIndex];
@@ -185,14 +185,14 @@ public BoardPanel(int size) {
       for (Horse h : players.get(directionIndex).getHorses()) {
 
         if (h.isInStairs()) {
-          moving.setDir(Directioner.Direction.values()[(directionIndex + 3) % 4]);
+          moving.setDir(DirectionSetupper.Direction.values()[(directionIndex + 3) % 4]);
           moving.resetMove();
 
           moving.up(h.getStairs());
         } 
         else if (h.isInBarns()) {
 
-          moving.setDir(Directioner.Direction.values()[directionIndex % 4]);
+          moving.setDir(DirectionSetupper.Direction.values()[directionIndex % 4]);
           moving.resetMove();
           moving.setMove(-(1.5f + BARNS / 2.f), -(1.5f + BARNS / 2.f));  
 
@@ -212,7 +212,7 @@ public BoardPanel(int size) {
         } 
         else {
 
-          moving.setDir(Directioner.Direction.values()[(directionIndex+3) % 4 ]);
+          moving.setDir(DirectionSetupper.Direction.values()[(directionIndex+3) % 4 ]);
           moving.resetMove();
           moving.up(6);
           moving.right(1);

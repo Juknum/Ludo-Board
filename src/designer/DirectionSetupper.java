@@ -1,6 +1,6 @@
 package designer;
 
-public class Directioner {
+public class DirectionSetupper {
   public enum Direction {
     NORTH, EAST, SOUTH, WEST
   };
@@ -12,9 +12,9 @@ public class Directioner {
 
   private float scale = 1f;
 
-  private Directioner.Direction dir = Direction.NORTH;
+  private DirectionSetupper.Direction dir = Direction.NORTH;
 
-  public Directioner(float x, float y) {
+  public DirectionSetupper(float x, float y) {
     this.originX = x;
     this.originY = y;
   }
@@ -23,7 +23,7 @@ public class Directioner {
     this.scale = scale;
   }
 
-  public Directioner(float x, float y, Direction dir) {
+  public DirectionSetupper(float x, float y, Direction dir) {
     this.originX = x;
     this.originY = y;
     this.dir = dir;

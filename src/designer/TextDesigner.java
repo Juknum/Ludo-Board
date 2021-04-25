@@ -17,15 +17,15 @@ public class TextDesigner extends CenterDesigner {
 
   /**
    * Set the text we want to display (in any direction)
-   * @param directioner
+   * @param directionSetupper
    * @param text
    * @param g
    */
-  public TextDesigner(Directioner directioner, String text, Graphics g) {
+  public TextDesigner(DirectionSetupper directionSetupper, String text, Graphics g) {
     this.text = text;
     this.g = g;
 
-    this.setDirectioner(directioner);
+    this.setDirectionsetupper(directionSetupper);
     this.setFontSize(20);
   }
 
