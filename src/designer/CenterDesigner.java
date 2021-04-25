@@ -1,15 +1,15 @@
-package drawer;
+package designer;
 
 import java.awt.*;
 
-public abstract class CenterDrawer {
+public abstract class CenterDesigner {
   private float scale = 1f;
   private float width = 1f;
   private float height = 1f;
 
   private Directioner directioner;
 
-  public CenterDrawer() {
+  public CenterDesigner() {
   }
 
   public void setDirectioner(Directioner directioner) {

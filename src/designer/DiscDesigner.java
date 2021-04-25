@@ -1,8 +1,8 @@
-package drawer;
+package designer;
 
 import java.awt.*;
 
-public class DiscDrawer extends CenterDrawer {
+public class DiscDesigner extends CenterDesigner {
   public void setDiameter(float d) {
     setSide(d);
   }

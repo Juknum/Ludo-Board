@@ -1,8 +1,8 @@
-package drawer;
+package designer;
 
 import java.awt.*;
 
-public class DiceDrawer {
+public class DiceDesigner {
   private static final int SIZE = 83;
   private static final int CI_SIZE = 16;
   private static final int BOR = 1;

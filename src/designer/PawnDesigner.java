@@ -1,11 +1,11 @@
-package drawer;
+package designer;
 
 import java.awt.*;
 import java.awt.Graphics2D;
 import java.awt.font.LineMetrics;
 import java.awt.geom.Rectangle2D;
 
-public class PawnDrawer extends DiscDrawer {
+public class PawnDesigner extends DiscDesigner {
   private String fontFamily = "Arial";
   private int fontStyle = Font.PLAIN;
   private Font font = new Font(fontFamily, fontStyle, 11);

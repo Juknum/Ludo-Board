@@ -1,11 +1,13 @@
 package panel;
 
-import drawer.DiceDrawer;
 import game.Manager;
 import static game.CONSTANTS.*;
 import game.RollListener;
 
 import javax.swing.*;
+
+import designer.DiceDesigner;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -44,7 +46,7 @@ public class DicePanel extends JLabel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    DiceDrawer.draw(g, 30, 50, lastDiceValue);
+    DiceDesigner.draw(g, 30, 50, lastDiceValue);
   }
 
   public void startRoll() {

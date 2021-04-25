@@ -1,8 +1,8 @@
-package drawer;
+package designer;
 
 import java.awt.*;
 
-public class RectDrawer extends CenterDrawer {
+public class RectDesigner extends CenterDesigner {
   @Override
   public void draw(Graphics g) {
     int width = getWidth();

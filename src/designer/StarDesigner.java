@@ -1,8 +1,8 @@
-package drawer;
+package designer;
 
 import java.awt.*;
 
-public class StarDrawer extends CenterDrawer {
+public class StarDesigner extends CenterDesigner {
 
   private int radius[] = {16, 8, 16, 8};
 

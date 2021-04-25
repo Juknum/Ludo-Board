@@ -1,11 +1,11 @@
-package drawer;
+package designer;
 
 import java.awt.*;
 import java.awt.font.LineMetrics;
 import java.awt.geom.Rectangle2D;
 
 @SuppressWarnings("unused")
-public class TextDrawer extends CenterDrawer {
+public class TextDesigner extends CenterDesigner {
   private Graphics g;
 
   private String text = "";
@@ -15,7 +15,7 @@ public class TextDrawer extends CenterDrawer {
   private float fontSize = 20;
   private Font font = new Font(fontFamily, fontStyle, 11);
 
-  public TextDrawer(Directioner directioner, String text, Graphics g) {
+  public TextDesigner(Directioner directioner, String text, Graphics g) {
     this.text = text;
     this.g = g;
 

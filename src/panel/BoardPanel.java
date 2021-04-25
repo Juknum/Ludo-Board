@@ -5,16 +5,17 @@ import game.Manager;
 import player.Horse;
 import player.Player;
 
-import drawer.Directioner;
-import drawer.DiscDrawer;
-import drawer.StarDrawer;
-import drawer.PawnDrawer;
-import drawer.RectDrawer;
-import drawer.TextDrawer;
-
 import static game.CONSTANTS.*;
 
 import javax.swing.*;
+
+import designer.Directioner;
+import designer.DiscDesigner;
+import designer.PawnDesigner;
+import designer.RectDesigner;
+import designer.StarDesigner;
+import designer.TextDesigner;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
@@ -24,10 +25,10 @@ import java.util.ArrayList;
 public class BoardPanel extends JPanel {
 private static final long serialVersionUID = 1L;
 
-private final DiscDrawer discDrawer = new DiscDrawer();
-private final StarDrawer starDrawer = new StarDrawer();
-private final RectDrawer rectDrawer = new RectDrawer();
-private final PawnDrawer pawnDrawer = new PawnDrawer();
+private final DiscDesigner discDrawer = new DiscDesigner();
+private final StarDesigner starDrawer = new StarDesigner();
+private final RectDesigner rectDrawer = new RectDesigner();
+private final PawnDesigner pawnDrawer = new PawnDesigner();
 private final Directioner textDirectioner = new Directioner(COUNT / 2.f, COUNT / 2.f);
 
 public BoardPanel(int size) {
@@ -151,7 +152,7 @@ public BoardPanel(int size) {
     }
 
     // text squares central
-    TextDrawer textDrawer = new TextDrawer(textDirectioner, "", g);
+    TextDesigner textDrawer = new TextDesigner(textDirectioner, "", g);
     textDrawer.setSize(spacew, spaceh);
     textDrawer.setFont("Arial Black", Font.PLAIN, .7f * spacew);
 

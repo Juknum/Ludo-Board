@@ -1,4 +1,4 @@
-package drawer;
+package designer;
 
 public class Directioner {
   public enum Direction {
