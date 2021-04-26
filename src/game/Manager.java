@@ -1,9 +1,15 @@
 package game;
 
-import javax.swing.*;
-import java.awt.*;
+import static game.Constants.*;
+
+import static game.AvailableActions.actions.*;
+
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import panel.BoardPanel;
 import panel.DicePanel;
@@ -11,10 +17,6 @@ import panel.MainRightPanel;
 import player.AIPlayer;
 import player.Player;
 import player.RealPlayer;
-
-import game.KeyListener;
-
-import static game.CONSTANTS.*;
 
 public class Manager {
   @SuppressWarnings("unused")
@@ -85,19 +87,55 @@ public class Manager {
     newRound(currentPlayerIndex);
 
     DicePanel.getInstance().addRollEndListener(v -> {
+      diceButton.setEnabled(false);
       Player currentPlayer = getCurrentPlayer();
       AvailableActions[] availableActions = currentPlayer.availableActions(v);
 
-      if (availableActions.length > 0) {
-        if (availableActions.length == 1 || currentPlayer instanceof AIPlayer) currentPlayer.act(availableActions[0]);
+      if (currentPlayer instanceof AIPlayer) currentPlayer.act(availableActions[0]);
 
-        if (currentPlayer instanceof RealPlayer) {
-          int E = KeyListener.getKeyIndex();
-        }
-      }
-      else {
-        MainRightPanel.addLog(new ActionLog(currentPlayer.getColor(), currentPlayer.getName(), "Can't play!"));
-        actionEnded(currentPlayer);
+      if (currentPlayer instanceof RealPlayer) {
+        Main.resetKeyPressed();
+        boolean isNotValid = true;
+        int keyValue = 0;
+
+        do {
+          keyValue = Main.getKeyPressedValue();
+          if (keyValue >= 49 && keyValue <= 52 && Main.isKeyPressed()) isNotValid = false;
+          else isNotValid = true;
+
+          System.out.println(isNotValid + " " + keyValue);
+
+          switch (keyValue) {
+            case 49: // pawn 1 is played
+              System.out.println("Pawn 1 played");
+              //if (availableActions[0].action == CANT_PLAY) { keyValue++; isNotValid = true; }
+              /*else {*/ currentPlayer.act(availableActions[0]); isNotValid = false; /*}*/
+              break;
+            case 50: // pawn 2 is played
+              System.out.println("Pawn 2 played");
+              //if (availableActions[1].action == CANT_PLAY) { keyValue++; isNotValid = true; }
+              /*else {*/ currentPlayer.act(availableActions[1]); isNotValid = false; /*}*/
+              break;
+            case 51: // pawn 3 is played
+              System.out.println("Pawn 3 played");
+              //if (availableActions[2].action == CANT_PLAY) { keyValue++; isNotValid = true; }
+              /*else {*/ currentPlayer.act(availableActions[2]); isNotValid = false; /*}*/
+              break;
+            case 52: // pawn 4 is played
+              System.out.println("Pawn 4 played");
+              //if (availableActions[3].action == CANT_PLAY) { keyValue++; isNotValid = true; }
+              /*else {*/ currentPlayer.act(availableActions[3]); isNotValid = false; /*}*/
+              break;
+            default: // no pawns can be played; act as CANT_PLAY
+              System.out.println("Can't play");
+              currentPlayer.act(new AvailableActions(CANT_PLAY, 0));
+              isNotValid = false;
+              break;
+          }
+
+
+        } while (isNotValid);
+       
       }
     });
 

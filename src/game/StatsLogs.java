@@ -1,7 +1,8 @@
 package game;
 
-import static game.CONSTANTS.TEXT_COLOR;
-import java.awt.*;
+import static game.Constants.TEXT_COLOR;
+
+import java.awt.Color;
 
 public class StatsLogs {
   private Color c = TEXT_COLOR;

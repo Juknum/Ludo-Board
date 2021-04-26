@@ -1,6 +1,7 @@
 package designer;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class DiceDesigner {
   private static final int SIZE = 83;

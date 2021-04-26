@@ -1,6 +1,6 @@
 package designer;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public class StarDesigner extends CenterDesigner {
 

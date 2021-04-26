@@ -1,6 +1,6 @@
 package designer;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public abstract class CenterDesigner {
   private float scale = 1f;

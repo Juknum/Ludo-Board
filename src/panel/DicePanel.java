@@ -1,19 +1,22 @@
 package panel;
 
-import game.Manager;
-import static game.CONSTANTS.*;
-import game.RollListener;
-import player.AIPlayer;
+import static game.Constants.DEBUG;
+import static game.Constants.darkColors;
 
-import javax.swing.*;
-
-import designer.DiceDesigner;
-
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
+import designer.DiceDesigner;
+import game.Manager;
+import game.RollListener;
+import player.AIPlayer;
 
 public class DicePanel extends JLabel {
   private static final long serialVersionUID = 1L;

@@ -1,6 +1,12 @@
 package player;
 
-import java.awt.*;
+import static game.AvailableActions.actions.*;
+import static game.Constants.DEBUG;
+import static game.Constants.MAX_LENGTH;
+import static game.Constants.NB_HORSES;
+import static game.Constants.SHIFT;
+
+import java.awt.Color;
 import java.util.ArrayList;
 
 import game.ActionLog;
@@ -8,9 +14,6 @@ import game.AvailableActions;
 import game.Manager;
 import panel.DicePanel;
 import panel.MainRightPanel;
-
-import static game.CONSTANTS.*;
-import static game.AvailableActions.actions.*;
 
 public abstract class Player {
   private final String name;
@@ -258,11 +261,12 @@ public abstract class Player {
             else availableActions.add(new AvailableActions(MOVE, i));
           }
         }
+        else availableActions.add(new AvailableActions(CANT_PLAY, i));
       }
     }
 
-    // we sort actions to let the most important one at first position
-    availableActions.sort(new AvailableActions(MOVE, 0));
+    // we sort actions to let the most important one at first position for AI
+    if (this instanceof AIPlayer) availableActions.sort(new AvailableActions(MOVE, 0));
     return availableActions.toArray(new AvailableActions[0]);
   }
 
@@ -292,6 +296,9 @@ public abstract class Player {
         content += "take " + diceValue + " steps and<br>remove the oposant horse.";
         removeHorse(getGlobalLength(h.getLength() + diceValue));
         h.move(hasEatenSomeone);
+        break;
+      case CANT_PLAY:
+        content = "Can't play!";
         break;
       default:
         break;

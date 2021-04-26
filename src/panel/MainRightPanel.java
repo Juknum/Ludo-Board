@@ -1,14 +1,25 @@
 package panel;
 
-import javax.swing.*;
-import java.awt.*;
+import static game.Constants.MAX_PLAYER;
+import static game.Constants.NB_BOT_PLAYERS;
+import static game.Constants.NB_REAL_PLAYERS;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import game.ActionLog;
-import game.StatsLogs;
-import game.Manager;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
-import static game.CONSTANTS.*;
+import game.ActionLog;
+import game.Manager;
+import game.StatsLogs;
 
 public class MainRightPanel extends JPanel {
   private static JButton diceButton;
@@ -29,6 +40,7 @@ public class MainRightPanel extends JPanel {
     this.setPreferredSize(new Dimension(200, 0));
 
     diceButton = new JButton("Roll dice");
+    diceButton.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
     Manager.getInstance().setDiceButton(diceButton);
     this.add(diceButton);
     this.add(DicePanel.getInstance());

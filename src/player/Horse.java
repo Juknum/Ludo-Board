@@ -1,7 +1,8 @@
 package player;
 
+import static game.Constants.MAX_LENGTH;
+
 import panel.DicePanel;
-import static game.CONSTANTS.MAX_LENGTH;
 
 public class Horse {
   private boolean inBarns = true;

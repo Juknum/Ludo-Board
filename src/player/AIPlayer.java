@@ -1,6 +1,6 @@
 package player;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class AIPlayer extends Player {
   public AIPlayer(String name, Color color) {

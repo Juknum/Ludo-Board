@@ -1,8 +1,8 @@
 package game;
 
-import static game.CONSTANTS.TEXT_COLOR;
+import static game.Constants.TEXT_COLOR;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class ActionLog {
   private Color c = TEXT_COLOR;

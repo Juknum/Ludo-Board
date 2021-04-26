@@ -1,8 +1,8 @@
 package game;
 
-import java.awt.*;
+import java.awt.Color;
 
-public final class CONSTANTS {
+public final class Constants {
   public static final int BARNS = 5;
   public static final int COUNT = 15;
   public static final int QUARTER = 6;
@@ -46,5 +46,5 @@ public final class CONSTANTS {
 
   public static final Color TEXT_COLOR = new Color(0x818181);
 
-  private CONSTANTS() {}
+  private Constants() {}
 }

@@ -1,13 +1,24 @@
 package panel;
 
-import game.Manager;
+import static game.Constants.BARNS;
+import static game.Constants.CELL_SIZE;
+import static game.Constants.COUNT;
+import static game.Constants.MAX_STAIRS;
+import static game.Constants.TEXT_COLOR;
+import static game.Constants.colors;
+import static game.Constants.darkColors;
+import static game.Constants.pawnColors;
 
-import player.Horse;
-import player.Player;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
-import static game.CONSTANTS.*;
-
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import designer.DirectionSetupper;
 import designer.DiscDesigner;
@@ -15,12 +26,9 @@ import designer.PawnDesigner;
 import designer.RectDesigner;
 import designer.StarDesigner;
 import designer.TextDesigner;
-
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
-
-//import java.awt.event.KeyEvent;
+import game.Manager;
+import player.Horse;
+import player.Player;
 
 public class BoardPanel extends JPanel {
 private static final long serialVersionUID = 1L;
