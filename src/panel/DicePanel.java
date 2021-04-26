@@ -16,7 +16,6 @@ import javax.swing.Timer;
 import designer.DiceDesigner;
 import game.Manager;
 import game.RollListener;
-import player.AIPlayer;
 
 public class DicePanel extends JLabel {
   private static final long serialVersionUID = 1L;

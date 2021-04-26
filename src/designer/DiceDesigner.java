@@ -60,11 +60,11 @@ public class DiceDesigner {
 
   /**
    * Draw the points of the dice
-   * @param g
-   * @param x
-   * @param y
-   * @param percentX
-   * @param percentY
+   * @param g Graphics
+   * @param x int
+   * @param y int
+   * @param percentX float
+   * @param percentY float
    */
   private static void drawPoint(Graphics g, int x, int y, float percentX, float percentY) {
     

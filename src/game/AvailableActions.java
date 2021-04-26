@@ -3,6 +3,12 @@ package game;
 import java.util.Comparator;
 
 public class AvailableActions implements Comparable<AvailableActions>, Comparator<AvailableActions> {
+  
+  
+  /**
+   * Compare to the given action
+   * @param o AvailableActions
+   */
   @Override
   public int compareTo(AvailableActions o) {
 
@@ -15,12 +21,20 @@ public class AvailableActions implements Comparable<AvailableActions>, Comparato
 
     else return 1;
   }
-
+  
+  /**
+   * Compare two action together
+   * @param o1 AvailableActions
+   * @param o2 AvailableActions
+   */
   @Override
   public int compare(AvailableActions o1, AvailableActions o2) {
     return o1.compareTo(o2);
   }
 
+  /**
+   * List of all type of actions
+   */
   public enum actions {
     MOVE,
     BARNS_OUT,

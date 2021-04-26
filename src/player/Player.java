@@ -1,7 +1,6 @@
 package player;
 
 import static game.AvailableActions.actions.*;
-import static game.Constants.DEBUG;
 import static game.Constants.MAX_LENGTH;
 import static game.Constants.NB_HORSES;
 import static game.Constants.SHIFT;
