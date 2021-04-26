@@ -17,7 +17,7 @@ public class AvailableActions implements Comparable<AvailableActions>, Comparato
     if (this.action == actions.BARNS_OUT)  return -2;
     if (this.action == actions.JUMP_HORSE) return -3;
     if (this.action == actions.MOVE)       return -4;
-    if (this.action == actions.CANT_PLAY)  return -100; // LESS IMPORTANT
+    if (this.action == actions.CANT_PLAY)  return 1; // LESS IMPORTANT
 
     else return 1;
   }
