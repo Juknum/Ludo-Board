@@ -6,6 +6,7 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 
+import game.KeyListener;
 import game.Manager;
 import static game.CONSTANTS.DEBUG;
 import panel.BoardPanel;
@@ -43,6 +44,7 @@ public class Main extends JFrame {
         m.setMinimumSize(newd);
       }
     });
+    this.addKeyListener(new KeyListener());
 
     Manager.getInstance().start(this);
 

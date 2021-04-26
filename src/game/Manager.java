@@ -12,6 +12,8 @@ import player.AIPlayer;
 import player.Player;
 import player.RealPlayer;
 
+import game.KeyListener;
+
 import static game.CONSTANTS.*;
 
 public class Manager {
@@ -86,9 +88,12 @@ public class Manager {
       Player currentPlayer = getCurrentPlayer();
       AvailableActions[] availableActions = currentPlayer.availableActions(v);
 
-      if (currentPlayer.getOrder() != 0) actionEnded(currentPlayer);
-      else if (availableActions.length > 0) {
+      if (availableActions.length > 0) {
         if (availableActions.length == 1 || currentPlayer instanceof AIPlayer) currentPlayer.act(availableActions[0]);
+
+        if (currentPlayer instanceof RealPlayer) {
+          int E = KeyListener.getKeyIndex();
+        }
       }
       else {
         MainRightPanel.addLog(new ActionLog(currentPlayer.getColor(), currentPlayer.getName(), "Can't play!"));
