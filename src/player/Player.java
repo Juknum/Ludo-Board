@@ -19,17 +19,17 @@ public abstract class Player {
   private final String name;
   private final Color  color;
   private final Horse[] horses = new Horse[NB_HORSES];
+  public boolean hasEatenSomeone = false;
+  public int order = 0;
 
+  /**
+   * Set player horses following NB_HORSES
+   */
   private void setHorses() {
-
     for (int i = 0; i < horses.length; i++) {
       horses[i] = new Horse();
     }
   }
-  
-  @SuppressWarnings("unused")
-  public boolean hasEatenSomeone = (DEBUG && NB_HORSES == 1) ? true : false; // enable stairs if debug mode
-  public int order = 0;
 
   /**
    * Get the horses of a player
@@ -251,11 +251,11 @@ public abstract class Player {
       if (h.isInBarns() && diceValue == 6) availableActions.add(new AvailableActions(BARNS_OUT, i));
       else {
         if (h.canStairs() && hasEatenSomeone) availableActions.add(new AvailableActions(STAIRS_UP, i));
-        else if (!h.isInBarns() && !h.isInStairs() && h.getLength() < MAX_LENGTH) {
+        else if (!h.isInBarns() && !h.isInStairs() && h.getLength() <= MAX_LENGTH) {
 
           // Looks for horses in the next cell:
           int nextLength = getGlobalLength(h.getLength() + diceValue);
-          if (getUpcomingHorses(nextLength) < 2) { // if there is more than 1 horse, this horse can't go to the cell
+          if (getUpcomingHorses(nextLength) < 2) { // if there is more than 1 horse, this horse can't go to the next cell
             // if there is 1 horse, check if the player could remove that horse
             if (canRemoveHorse(nextLength)) availableActions.add(new AvailableActions(JUMP_HORSE, i));
             else availableActions.add(new AvailableActions(MOVE, i));
@@ -282,23 +282,23 @@ public abstract class Player {
     switch (action.action) {
       case STAIRS_UP:
         h.stairs();
-        content += h.isGoalReached() ? "join the home!" : "stairs,  " + (h.getStairs()-1) + " left.";
+        content += h.isGoalReached() ? "join the home! (#" + diceValue + ")" : "stairs,  " + (h.getStairs()-1) + " left. (#" + diceValue + ")";
         break;
       case BARNS_OUT:
         h.setInBarns(false);
-        content += "out of barn.";
+        content += "out of barn. (#" + diceValue + ")";
         break;
       case MOVE:
-        content += "take " + diceValue + " steps.";
+        content += "take " + diceValue + " steps. (#" + diceValue + ")";
         h.move(hasEatenSomeone);
         break;
       case JUMP_HORSE:
-        content += "take " + diceValue + " steps and<br>remove the oposant horse.";
+        content += "take " + diceValue + " steps and<br>remove the oposant horse. (#" + diceValue + ")";
         removeHorse(getGlobalLength(h.getLength() + diceValue));
         h.move(hasEatenSomeone);
         break;
       case CANT_PLAY:
-        content = "Can't play!";
+        content = "Can't play! (#" + diceValue + ")";
         break;
       default:
         break;
@@ -309,7 +309,7 @@ public abstract class Player {
   }
 
   /**
-   * Get the color of a player
+   * Get the color of the player
    * @return Color
    */
   public Color getColor() {

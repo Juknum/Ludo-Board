@@ -1,7 +1,6 @@
 package game;
 
 import static game.Constants.*;
-
 import static game.AvailableActions.actions.*;
 
 import java.awt.Component;
@@ -28,15 +27,27 @@ public class Manager {
   public static final ArrayList<Player> playerList = new ArrayList<>(NB_REAL_PLAYERS+NB_BOT_PLAYERS);
   public static int playerEnd = 0;
 
+  /**
+   * Set the dice button
+   * @param button JButton
+   */
   public void setDiceButton(JButton button) {
     diceButton = button;
   }
 
+  /**
+   * Set the gam panel
+   * @param gamePanel BoardPanel
+   */
   public static void setGamePanel(BoardPanel gamePanel) {
     Manager.gamePanel = gamePanel;
   }
 
   public static Manager instance = null;
+  /**
+   * Get the actual instance
+   * @return Manager 
+   */
   public static Manager getInstance() {
     if (instance == null) {
       instance = new Manager();
@@ -47,6 +58,10 @@ public class Manager {
 
   private Manager() {}
 
+  /**
+   * Start the game
+   * @param c Component
+   */
   public void start(Component c) {
     playerList.clear();
     int nb = -1;
@@ -94,48 +109,19 @@ public class Manager {
       if (currentPlayer instanceof AIPlayer) currentPlayer.act(availableActions[0]);
 
       if (currentPlayer instanceof RealPlayer) {
-        Main.resetKeyPressed();
-        boolean isNotValid = true;
-        int keyValue = 0;
 
-        do {
-          keyValue = Main.getKeyPressedValue();
-          if (keyValue >= 49 && keyValue <= 52 && Main.isKeyPressed()) isNotValid = false;
-          else isNotValid = true;
+        int pawn = 0;
+        // get the played pawn if the player can play
+        if (currentPlayer.horsesOut() - currentPlayer.horsesInHome() != 0 || (currentPlayer.horsesIn() > 0 && DicePanel.getLastDice() == 6)) {
+          do {
+            String tmp = JOptionPane.showInputDialog(c, "Enter a horse to play (1..." + NB_HORSES + ")");
+            try {
+              pawn = Integer.parseInt(tmp);
+            } catch (NumberFormatException ignored) {}
+          } while (pawn < 1 || pawn > NB_HORSES);
 
-          System.out.println(isNotValid + " " + keyValue);
-
-          switch (keyValue) {
-            case 49: // pawn 1 is played
-              System.out.println("Pawn 1 played");
-              //if (availableActions[0].action == CANT_PLAY) { keyValue++; isNotValid = true; }
-              /*else {*/ currentPlayer.act(availableActions[0]); isNotValid = false; /*}*/
-              break;
-            case 50: // pawn 2 is played
-              System.out.println("Pawn 2 played");
-              //if (availableActions[1].action == CANT_PLAY) { keyValue++; isNotValid = true; }
-              /*else {*/ currentPlayer.act(availableActions[1]); isNotValid = false; /*}*/
-              break;
-            case 51: // pawn 3 is played
-              System.out.println("Pawn 3 played");
-              //if (availableActions[2].action == CANT_PLAY) { keyValue++; isNotValid = true; }
-              /*else {*/ currentPlayer.act(availableActions[2]); isNotValid = false; /*}*/
-              break;
-            case 52: // pawn 4 is played
-              System.out.println("Pawn 4 played");
-              //if (availableActions[3].action == CANT_PLAY) { keyValue++; isNotValid = true; }
-              /*else {*/ currentPlayer.act(availableActions[3]); isNotValid = false; /*}*/
-              break;
-            default: // no pawns can be played; act as CANT_PLAY
-              System.out.println("Can't play");
-              currentPlayer.act(new AvailableActions(CANT_PLAY, 0));
-              isNotValid = false;
-              break;
-          }
-
-
-        } while (isNotValid);
-       
+          currentPlayer.act(availableActions[pawn-1]);
+        } else currentPlayer.act(new AvailableActions(CANT_PLAY, 0));
       }
     });
 
@@ -156,7 +142,7 @@ public class Manager {
     if (p == getCurrentPlayer()) {
       if (DicePanel.getLastDice() == 6) {
         diceButton.setEnabled(true);
-
+    
         if (Manager.getCurrentPlayer() instanceof AIPlayer && !DEBUG) diceButton.doClick();
         else if (Manager.getCurrentPlayer() instanceof AIPlayer && AUTO_CLICK) diceButton.doClick();
       }
@@ -198,6 +184,7 @@ public class Manager {
    * Determines which player will start to play following games rules
    */
   public static void startRound() {
+    gamePanel.repaint();
     int beginnerDice = 0;
 
     for (int i = 0; i < playerList.size(); i++) {

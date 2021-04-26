@@ -50,7 +50,7 @@ public class DicePanel extends JLabel {
   }
 
   /**
-   * Get the last dice value
+   * Get the latest dice value
    * @return int
    */
   public static int getLastDice() {
@@ -138,13 +138,9 @@ public class DicePanel extends JLabel {
    * @param playerName String
    */
   public void setPlayer(int playerIndex, String playerName) {
-    if (Manager.getCurrentPlayer() instanceof AIPlayer) this.setText(
+    this.setText(
       "<html>It's the turn of <b style='color: #"+ Integer.toHexString(darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
       + playerName + 
       "</b></html>");
-    else this.setText(
-      "<html>It's the turn of <b style='color: #"+ Integer.toHexString(darkColors[playerIndex].getRGB() & 0xFFFFFF) + "'>" 
-      + playerName + 
-      "</b><br>Use hotbar keys to play the corresponding pawn.</html>");
   }
 }

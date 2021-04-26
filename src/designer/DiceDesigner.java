@@ -17,10 +17,10 @@ public class DiceDesigner {
 
   /**
    * Draw the square of the dice
-   * @param g
-   * @param x
-   * @param y
-   * @param v
+   * @param g Graphics
+   * @param x int
+   * @param y int
+   * @param v int
    */
   public static void draw(Graphics g, int x, int y, int v) {
     if (v < 1 || v > 6)

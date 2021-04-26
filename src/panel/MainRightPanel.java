@@ -40,7 +40,6 @@ public class MainRightPanel extends JPanel {
     this.setPreferredSize(new Dimension(200, 0));
 
     diceButton = new JButton("Roll dice");
-    diceButton.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
     Manager.getInstance().setDiceButton(diceButton);
     this.add(diceButton);
     this.add(DicePanel.getInstance());
@@ -93,6 +92,7 @@ public class MainRightPanel extends JPanel {
 
   /**
    * Add stats to the stats logs
+   * @param log StatsLog
    */
   public static void addStats(StatsLogs log) {
     for (int i = 0; i < MAX_PLAYER; i++) {
@@ -101,12 +101,12 @@ public class MainRightPanel extends JPanel {
   }
 
   /**
-   * Set a statistics of the statistics panel (0-3)
+   * Set a statistics of the statistics logs
    * @param log StatsLogs
    * @param index int
    */
   public static void setStats(StatsLogs log, int index) {
-    if (index > 3) return;
+    if (index > statsLogs.size()) return;
 
     statsLogs.set(index, log);
 

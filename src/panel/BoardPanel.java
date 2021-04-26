@@ -1,13 +1,6 @@
 package panel;
 
-import static game.Constants.BARNS;
-import static game.Constants.CELL_SIZE;
-import static game.Constants.COUNT;
-import static game.Constants.MAX_STAIRS;
-import static game.Constants.TEXT_COLOR;
-import static game.Constants.colors;
-import static game.Constants.darkColors;
-import static game.Constants.pawnColors;
+import static game.Constants.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -226,6 +219,7 @@ public BoardPanel(int size) {
           moving.right(1);
 
           int len = h.getLength();
+          if (len == -1) moving.up(1);
           while (len > 0) {
             if (len <= 4) {
               moving.down(1);

@@ -19,9 +19,9 @@ public class TextDesigner extends CenterDesigner {
 
   /**
    * Set the text we want to display (in any direction)
-   * @param directionSetupper
-   * @param text
-   * @param g
+   * @param directionSetupper DirectionSetupper
+   * @param text String
+   * @param g Graphics
    */
   public TextDesigner(DirectionSetupper directionSetupper, String text, Graphics g) {
     this.text = text;
@@ -64,7 +64,7 @@ public class TextDesigner extends CenterDesigner {
 
   /**
    * Set the font on the text we want to display
-   * @param fontFamily
+   * @param fontFamily String
    */
   public void setFontFamily(String fontFamily) {
     this.fontFamily = fontFamily;
@@ -72,7 +72,7 @@ public class TextDesigner extends CenterDesigner {
   }
 
   /**
-   * Return the style of font used
+   * Return the style of the used font
    * @return Font
    */
   public int getFontStyle() {
@@ -80,8 +80,8 @@ public class TextDesigner extends CenterDesigner {
   }
 
   /**
-   * Set the style of font (plain, bold, etc)
-   * @param fontStyle
+   * Set the style of font (plain, bold...)
+   * @param fontStyle int
    */
   public void setFontStyle(int fontStyle) {
     this.fontStyle = fontStyle;
@@ -98,7 +98,7 @@ public class TextDesigner extends CenterDesigner {
 
   /**
    * Set the size of the displayed text
-   * @param fontSize
+   * @param fontSize float
    */
   public void setFontSize(float fontSize) {
     this.fontSize = fontSize;
@@ -115,7 +115,7 @@ public class TextDesigner extends CenterDesigner {
 
   /**
    * Set the text we want to display (similar to TextDesigner)
-   * @param text
+   * @param text String
    */
   public void setText(String text) {
     this.text = text;
@@ -137,7 +137,7 @@ public class TextDesigner extends CenterDesigner {
 
   /**
    * Design the area where the text will be displayed
-   * @param g
+   * @param g Graphics
    */
   @Override
   public void draw(Graphics g) {
@@ -160,9 +160,9 @@ public class TextDesigner extends CenterDesigner {
   }
 
   /**
-   * Draw the area designed and display the text
-   * @param g
-   * @param text
+   * Draw the area designed and set the text
+   * @param g Graphics
+   * @param text String
    */
   public void draw(Graphics g, String text) {
     this.setText(text);
@@ -171,7 +171,7 @@ public class TextDesigner extends CenterDesigner {
 
   /**
    * Fill the area where the text is displayed
-   * @param g
+   * @param g Graphics
    */
   @Override
   public void fill(Graphics g) {

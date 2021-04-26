@@ -27,9 +27,19 @@ public class Horse {
       // if dice value == 6:
       if (stairs == 1) goalReached = true;
     }
+    // if the player has eaten nobody and have reached the last cell:
+    else {
+      if (length + diceValue > MAX_LENGTH) length = (MAX_LENGTH + diceValue) - (MAX_LENGTH+1);
+
+      System.out.println("lap++ : length: " + length);
+    }
 
   }
 
+  /**
+   * Tell if a horse is in stairs or not
+   * @return boolean
+   */
   public boolean isInStairs() {
     return isStairs;
   }
@@ -38,7 +48,7 @@ public class Horse {
    * a horse can stairs if:
    * it reached the latest tile,
    * && the substraction of left stairs & the dice value can't go below 0
-   * @return Boolean
+   * @return boolean
    */
   public boolean canStairs() {
     int diceValue = DicePanel.getLastDice();
@@ -69,7 +79,7 @@ public class Horse {
 
   /**
    * Get the number of step to finish the stairs of this horse
-   * @return stairs value
+   * @return int
    */
   public int getStairs() {
     return stairs;
@@ -77,7 +87,7 @@ public class Horse {
 
   /**
    * Get the length (number of tile) that a horse as reached
-   * @return length value
+   * @return int
    */
   public int getLength() {
     return length;
@@ -85,7 +95,7 @@ public class Horse {
 
   /**
    * Get the barns status of a horse
-   * @return Boolean
+   * @return boolean
    */
   public boolean isInBarns() {
     return inBarns;
@@ -93,7 +103,7 @@ public class Horse {
 
   /**
    * Get the state of a horse, does it have reached the highest step?
-   * @return Boolean
+   * @return boolean
    */
   public boolean isGoalReached() {
     return goalReached;
@@ -101,7 +111,7 @@ public class Horse {
 
   /**
    * Set the barns status of a horse & reset attributes
-   * @param inBarns
+   * @param inBarns boolean
    */
   public void setInBarns(boolean inBarns) {
     this.inBarns = inBarns;

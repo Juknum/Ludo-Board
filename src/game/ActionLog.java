@@ -9,10 +9,20 @@ public class ActionLog {
   private String prefix = "system";
   private final String content;
 
+  /**
+   * Change the content of a log
+   * @param content String
+   */
   public ActionLog(String content) {
     this.content = content;
   }
 
+  /**
+   * Create a new action log
+   * @param c Color
+   * @param prefix String
+   * @param content String
+   */
   public ActionLog(Color c, String prefix, String content) {
     this.c = c;
     this.prefix = prefix;

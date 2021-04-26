@@ -16,8 +16,8 @@ public class DirectionSetupper {
 
   /**
    * Set a direction setupper
-   * @param x
-   * @param y
+   * @param x float
+   * @param y float
    */
   public DirectionSetupper(float x, float y) {
     this.originX = x;
@@ -26,7 +26,7 @@ public class DirectionSetupper {
 
   /**
    * Set the scale
-   * @param scale
+   * @param scale float
    */
   public void setScale(float scale) {
     this.scale = scale;
@@ -34,9 +34,9 @@ public class DirectionSetupper {
 
   /**
    * Set a direction setupper like a previous method but with a specific direction
-   * @param x
-   * @param y
-   * @param dir
+   * @param x float
+   * @param y float
+   * @param dir Direction
    */
   public DirectionSetupper(float x, float y, Direction dir) {
     this.originX = x;
@@ -46,16 +46,16 @@ public class DirectionSetupper {
 
   /**
    * Set the direction
-   * @param dir
+   * @param dir Direction
    */
   public void setDir(Direction dir) {
     this.dir = dir;
   }
 
   /**
-   * Allow a pawn to move
-   * @param horizontal
-   * @param vertical
+   * Move the "pencil"
+   * @param horizontal float
+   * @param vertical float
    */
   public void move(float horizontal, float vertical) {
     movex += horizontal;
@@ -63,32 +63,32 @@ public class DirectionSetupper {
   }
 
   /**
-   * Make a pawn move by v lenght to the left
-   * @param v
+   * Make the "pencil" move by v lenght to the left
+   * @param v float
    */
   public void left(float v) {
     move(-v, 0);
   }
 
   /**
-   * Make a pawn move by v lenght to the right
-   * @param v
+   * Make the "pencil" move by v lenght to the right
+   * @param v float
    */
   public void right(float v) {
     move(v, 0);
   }
 
   /**
-   * Make a pawn move by v lenght to the bottom
-   * @param v
+   * Make the "pencil" move by v lenght to the bottom
+   * @param v float
    */
   public void down(float v) {
     move(0, v);
   }
 
   /**
-   * Make a pawn move by v lenght to the top
-   * @param v
+   * Make the "pencil" move by v lenght to the top
+   * @param v float
    */
   public void up(float v) {
     move(0, -v);
@@ -146,8 +146,8 @@ public class DirectionSetupper {
 
   /**
    * Set the values of the moving on X and Y axis
-   * @param x
-   * @param y
+   * @param x float
+   * @param y float
    */
   public void setMove(float x, float y) {
     movex = x;
@@ -155,18 +155,9 @@ public class DirectionSetupper {
   }
 
   /**
-   * Reset the setMove methos
+   * Reset the "pencil" to (0,0) (center of the frame)
    */
   public void resetMove() {
     setMove(0, 0);
-  }
-
-  /**
-   * Convert data from previous methods to display them in command prompt
-   * @return String
-   */
-  @Override
-  public String toString() {
-    return "{ movex: " + movex + ", movey: " + movey + " x: " + getX() + ", y: " + getY() + "}";
   }
 }

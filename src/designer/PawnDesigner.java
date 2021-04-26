@@ -97,6 +97,11 @@ public class PawnDesigner extends DiscDesigner {
     g.setColor(c);
   }
 
+  /**
+   * Set horse num id (the number on top of it) and draw the horse
+   * @param g Graphics
+   * @param index int
+   */
   public void drawHorse(Graphics g, int index) {
     this.index = index;
     this.draw(g);

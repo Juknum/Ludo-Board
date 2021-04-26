@@ -22,22 +22,22 @@ A Ludo **board** is square with a pattern on it in the shape of a cross, each ar
 
 ## 2. The Game Play
 
-- [ ] Each player chooses one of the 4 colors (green, yellow, red or blue) and places the 4 pieces of that color in the corresponding block.  
-- [ ] The players start the run of their pieces from the starting square.  
-- [ ] Players take turns in a clockwise order; highest throw of the die starts.  
-- [ ] Each throw, the player decides which piece to move. A piece simply moves in a clockwise direction around the track given by the number thrown. If no piece can legally move according to the number thrown, play passes to the next player.  
-- [ ] A player must throw a 6 to move a piece from the starting block onto the first square on the track. The piece moves 6 squares around the circuit beginning with the appropriately colored start square (and the player then has another turn).  
-- [ ] Colored squares and the star ones are defined as safe zones that protect the piece from being sent to the starting block.  
-- [ ] If a piece lands on a piece of a different color, the piece jumped upon is returned to its starting block except in case of safe zones.  
-- [ ] If a piece lands upon a piece of the same color, this forms a block. This block cannot be passed or landed on by any opposing piece.  
+- [x] Each player chooses one of the 4 colors (green, yellow, red or blue) and places the 4 pieces of that color in the corresponding block.  
+- [x] The players start the run of their pieces from the starting square.  
+- [x] Players take turns in a clockwise order; highest throw of the die starts.  
+- [x] Each throw, the player decides which piece to move. A piece simply moves in a clockwise direction around the track given by the number thrown. If no piece can legally move according to the number thrown, play passes to the next player.  
+- [x] A player must throw a 6 to move a piece from the starting block onto the first square on the track. The piece moves 6 squares around the circuit beginning with the appropriately colored start square (and the player then has another turn).  
+- [x] Colored squares and the star ones are defined as safe zones that protect the piece from being sent to the starting block.  
+- [x] If a piece lands on a piece of a different color, the piece jumped upon is returned to its starting block except in case of safe zones.  
+- [x] If a piece lands upon a piece of the same color, this forms a block. This block cannot be passed or landed on by any opposing piece.  
 
 > More details about the rules can be found in this [video](https://www.youtube.com/watch?v=lns9TeKVebY&ab_channel=Mr.Animate).  
 > Also you can install check the game “Ludo King” from AppStore and PlayStore.  
 
 ## 3. Your work
 The aim of this project is to implement the Ludo game using JAVA respecting the original rules. The game will be played with two modes:
-- [ ] **4 Players**  
+- [x] **4 Players**  
     This is easiest mode; it requires 4 players and the game play is managed according the players actions specified through the keyboard: throw the dice and select the piece to move.  
     
-- [ ] **1 Player vs 3 COMs (optional)**  
+- [x] (not fully implemented) **1 Player vs 3 COMs (optional)**  
     This mode is played with one player and three computer ones “COM”. You need to make the three COMs capable of challenging the player. The COMs will try to follow the moves of the player and send its pieces back to the starting block. If they are ahead of the player, the COMs try to make their pieces reach the home first. You can develop your own strategy (artificial intelligence) to beat the player 😉.

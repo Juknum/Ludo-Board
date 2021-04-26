@@ -6,6 +6,7 @@ public class RectDesigner extends CenterDesigner {
 
   /**
    * Draw rectangles (for stairs and barns)
+   * @param g Graphics
    */
   @Override
   public void draw(Graphics g) {
@@ -20,6 +21,7 @@ public class RectDesigner extends CenterDesigner {
 
   /**
    * Fill the rectangles
+   * @param g Graphics
    */
   @Override
   public void fill(Graphics g) {

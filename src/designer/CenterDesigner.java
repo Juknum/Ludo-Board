@@ -22,7 +22,7 @@ public abstract class CenterDesigner {
 
   /**
    * Set the scale
-   * @param scale
+   * @param scale float
    */
   public void setScale(float scale) {
     this.scale = scale;
@@ -30,7 +30,7 @@ public abstract class CenterDesigner {
 
   /**
    * Set the width
-   * @param width
+   * @param width float
    */
   public void setWidth(float width) {
     this.width = width;
@@ -38,7 +38,7 @@ public abstract class CenterDesigner {
 
   /**
    * Set the height
-   * @param height
+   * @param height float
    */
   public void setHeight(float height) {
     this.height = height;
@@ -46,8 +46,8 @@ public abstract class CenterDesigner {
 
   /**
    * Set the size thanks to the two previous methods
-   * @param width
-   * @param height
+   * @param width float
+   * @param height float
    */
   public void setSize(float width, float height) {
     this.setWidth(width);
@@ -111,6 +111,5 @@ public abstract class CenterDesigner {
   }
 
   public abstract void draw(Graphics g);
-
   public abstract void fill(Graphics g);
 }

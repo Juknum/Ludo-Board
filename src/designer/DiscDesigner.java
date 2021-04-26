@@ -6,7 +6,7 @@ public class DiscDesigner extends CenterDesigner {
 
   /**
    * Set the diameter of a circle to the lenght 'd'
-   * @param d
+   * @param d float
    */
   public void setDiameter(float d) {
     setSide(d);
@@ -21,6 +21,7 @@ public class DiscDesigner extends CenterDesigner {
 
   /**
    * Draw a circle
+   * @param g Graphics
    */
   @Override
   public void draw(Graphics g) {
@@ -35,6 +36,7 @@ public class DiscDesigner extends CenterDesigner {
 
   /**
    * Fill the drawn circle
+   * @param g Graphics
    */
   @Override
   public void fill(Graphics g) {
