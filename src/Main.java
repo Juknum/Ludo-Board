@@ -1,12 +1,12 @@
+import static gameBase.Constants.DEBUG;
+
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import game.Manager;
-import panel.BoardPanel;
-import panel.MainRightPanel;
-
-import static game.Constants.DEBUG;
+import gameBase.Manager;
+import gamePanel.BoardPanel;
+import gamePanel.MainRightPanel;
 
 public class Main extends JFrame {
   private static final long serialVersionUID = 1L;

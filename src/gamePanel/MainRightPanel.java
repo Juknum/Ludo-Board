@@ -1,8 +1,8 @@
-package panel;
+package gamePanel;
 
-import static game.Constants.MAX_PLAYER;
-import static game.Constants.NB_BOT_PLAYERS;
-import static game.Constants.NB_REAL_PLAYERS;
+import static gameBase.Constants.MAX_PLAYER;
+import static gameBase.Constants.NB_BOT_PLAYERS;
+import static gameBase.Constants.NB_REAL_PLAYERS;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,9 +16,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import game.ActionLog;
-import game.Manager;
-import game.StatsLogs;
+import gameBase.ActionLog;
+import gameBase.Manager;
+import gameBase.StatsLogs;
 
 public class MainRightPanel extends JPanel {
   private static JButton diceButton;

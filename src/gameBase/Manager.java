@@ -1,7 +1,7 @@
-package game;
+package gameBase;
 
-import static game.Constants.*;
-import static game.AvailableActions.actions.*;
+import static gameBase.AvailableActions.actions.*;
+import static gameBase.Constants.*;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import panel.BoardPanel;
-import panel.DicePanel;
-import panel.MainRightPanel;
-import player.AIPlayer;
-import player.Player;
-import player.RealPlayer;
+import gamePanel.BoardPanel;
+import gamePanel.DicePanel;
+import gamePanel.MainRightPanel;
+import gamePlayer.AIPlayer;
+import gamePlayer.Player;
+import gamePlayer.RealPlayer;
 
 public class Manager {
   @SuppressWarnings("unused")

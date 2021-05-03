@@ -1,6 +1,6 @@
-package panel;
+package gamePanel;
 
-import static game.Constants.*;
+import static gameBase.Constants.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,15 +13,15 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import designer.DirectionSetupper;
-import designer.DiscDesigner;
-import designer.PawnDesigner;
-import designer.RectDesigner;
-import designer.StarDesigner;
-import designer.TextDesigner;
-import game.Manager;
-import player.Horse;
-import player.Player;
+import gameBase.Manager;
+import gameDesigner.DirectionSetupper;
+import gameDesigner.DiscDesigner;
+import gameDesigner.PawnDesigner;
+import gameDesigner.RectDesigner;
+import gameDesigner.StarDesigner;
+import gameDesigner.TextDesigner;
+import gamePlayer.Horse;
+import gamePlayer.Player;
 
 public class BoardPanel extends JPanel {
 private static final long serialVersionUID = 1L;

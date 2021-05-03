@@ -1,4 +1,4 @@
-package designer;
+package gameDesigner;
 
 public class DirectionSetupper {
   public enum Direction {

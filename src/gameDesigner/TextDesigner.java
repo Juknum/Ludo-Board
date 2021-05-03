@@ -1,4 +1,4 @@
-package designer;
+package gameDesigner;
 
 import java.awt.Color;
 import java.awt.Font;

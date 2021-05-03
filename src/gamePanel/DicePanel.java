@@ -1,7 +1,7 @@
-package panel;
+package gamePanel;
 
-import static game.Constants.DEBUG;
-import static game.Constants.darkColors;
+import static gameBase.Constants.DEBUG;
+import static gameBase.Constants.darkColors;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-import designer.DiceDesigner;
-import game.Manager;
-import game.RollListener;
+import gameBase.Manager;
+import gameBase.RollListener;
+import gameDesigner.DiceDesigner;
 
 public class DicePanel extends JLabel {
   private static final long serialVersionUID = 1L;

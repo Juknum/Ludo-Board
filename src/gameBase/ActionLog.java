@@ -1,6 +1,6 @@
-package game;
+package gameBase;
 
-import static game.Constants.TEXT_COLOR;
+import static gameBase.Constants.TEXT_COLOR;
 
 import java.awt.Color;
 

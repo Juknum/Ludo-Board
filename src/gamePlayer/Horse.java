@@ -1,8 +1,8 @@
-package player;
+package gamePlayer;
 
-import static game.Constants.MAX_LENGTH;
+import static gameBase.Constants.MAX_LENGTH;
 
-import panel.DicePanel;
+import gamePanel.DicePanel;
 
 public class Horse {
   private boolean inBarns = true;

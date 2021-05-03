@@ -1,18 +1,18 @@
-package player;
+package gamePlayer;
 
-import static game.AvailableActions.actions.*;
-import static game.Constants.MAX_LENGTH;
-import static game.Constants.NB_HORSES;
-import static game.Constants.SHIFT;
+import static gameBase.AvailableActions.actions.*;
+import static gameBase.Constants.MAX_LENGTH;
+import static gameBase.Constants.NB_HORSES;
+import static gameBase.Constants.SHIFT;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
-import game.ActionLog;
-import game.AvailableActions;
-import game.Manager;
-import panel.DicePanel;
-import panel.MainRightPanel;
+import gameBase.ActionLog;
+import gameBase.AvailableActions;
+import gameBase.Manager;
+import gamePanel.DicePanel;
+import gamePanel.MainRightPanel;
 
 public abstract class Player {
   private final String name;
